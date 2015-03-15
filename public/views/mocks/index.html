@@ -1,0 +1,28 @@
+<div class="row form-group">
+    <div class="col-sm-10">
+        <input type="search" class="form-control" placeholder="Search" ng-model="vm.query" />
+    </div>
+    <div class="col-sm-2" style="text-align: right">
+        <a class="btn btn-primary" href="/mocks/new">New Mock</a>
+    </div>
+</div>
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th width="10%">Method</th>
+            <th width="80%">Path</th>
+            <th width="10%">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="mock in vm.mocks | filter: vm.query">
+            <td class="center">{{ mock.method }}</td>
+            <td><a href="#" ng-click="vm.show(mock._id)">/{{ mock.path }}</a></td>
+            <td class="center">
+                <a href="/api/{{ mock.path }}" class="btn btn-xs btn-success" target="_blank">Go</a>
+                <a href="#" class="btn btn-xs btn-default">Logs</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

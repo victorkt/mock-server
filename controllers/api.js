@@ -21,7 +21,8 @@ function mockedRoute(req, res, next) {
     body = template(binds);
 
     // sets headers and sends response
-    res.set(JSON.parse(req.mock.headers));
+    if(req.mock.headers)
+        res.set(JSON.parse(req.mock.headers));
     res.status(req.mock.status).send(body);
 }
 

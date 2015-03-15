@@ -12,8 +12,8 @@ router.use(mocks);
 router.use(helpers);
 
 // setup mocked routes middleware
-router.use('/api/:id(*)', function(req, res, next) {
-    db.mocks.findOneAsync({ _id: req.params.id, method: req.method.toUpperCase() }).then(function(mock) {
+router.use('/:id(*)', function(req, res, next) {
+    db.mocks.findOneAsync({ path: req.params.id, method: req.method.toUpperCase() }).then(function(mock) {
         req.mock = mock;
         next();
     }).catch(function(err) {
@@ -23,6 +23,5 @@ router.use('/api/:id(*)', function(req, res, next) {
 
 // setup mocked routes handler
 router.use(mockedRoute);
-
 
 module.exports = router;

@@ -1,0 +1,19 @@
+tr th {
+  text-align: center;
+}
+
+.center {
+  text-align: center;
+}
+
+h1 a:link {
+  text-decoration: none;
+}
+
+textarea {
+  font-family: "Consolas";
+}
+
+.navbar-nav li {
+  padding: 0 10px 0 10px;
+}

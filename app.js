@@ -8,6 +8,7 @@ var express = require('express'),
     app = express();
 
 // middleware
+app.use(express.static('./public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -16,7 +17,12 @@ require('./initializers/handlebars-helpers')();
 
 // setup routes
 app.use(logger);
-app.use(routes);
+app.use('/api', routes);
+
+// route to handle all angular requests
+app.get('*', function(req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -31,7 +37,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.json({
         message: err.message,
-        error: err
+        error: err.stack
     });
 });
 

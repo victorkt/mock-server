@@ -1,0 +1,58 @@
+<div class="alert alert-info" role="alert">
+    <span class="glyphicon glyphicon-info-sign"></span> Fields marked with * are required.
+</div>
+
+<form name="forms.formMock" novalidate class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-1 control-label">Path *</label>
+        <div class="col-sm-11">
+            <input class="form-control" type="text" ng-model="vm.mock.path" required="true" />
+        </div>
+    </div>
+    
+    <div class="row form-group">
+        <label class="col-sm-1 control-label">Method *</label>
+        <div class="col-sm-11">
+            <select class="form-control" ng-model="vm.mock.method" required="true">
+                <option>GET</option>
+                <option>POST</option>
+                <option>PUT</option>
+                <option>PATCH</option>
+                <option>DELETE</option>
+                <option>HEAD</option>
+                <option>OPTIONS</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="row form-group">
+        <label class="col-sm-1 control-label">Response Status *</label>
+        <div class="col-sm-11">
+            <input class="form-control" type="number" required="true" ng-model="vm.mock.status" />
+        </div>
+    </div>
+    
+    <div class="row form-group">
+        <label class="col-sm-1 control-label">Headers</label>
+        <div class="col-sm-11">
+            <input class="form-control" type="text" ng-model="vm.mock.headers" />
+        </div>
+    </div>
+    
+    <div class="row form-group">
+        <label class="col-sm-1 control-label">Response Template</label>
+        <div class="col-sm-11">
+            <textarea class="form-control" ng-model="vm.mock.template" rows="10"></textarea>
+        </div>
+    </div>
+    
+    <br /><br />
+
+    <div class="row form-group">
+        <div style="text-align: center">
+            <button type="button" class="btn btn-danger" ng-click="vm.delete()" ng-show="vm.mock._id">Delete Mock</button>
+            <span class="col-sm-offset-5"></span>
+            <button type="button" class="btn btn-success" ng-click="vm.save()">Save Mock</button>
+        </div>
+    </div>
+</form>

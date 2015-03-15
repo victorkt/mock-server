@@ -1,0 +1,6 @@
+<h2 ng-hide="vm.mock.path">New Mock</h2>
+<h2 ng-show="vm.mock.path">{{ vm.mock.method }} /{{ vm.mock.path }}</h2>
+
+<hr/>
+
+<div ng-include='"views/mocks/_form.html"' ng-init="forms = {}"></div>

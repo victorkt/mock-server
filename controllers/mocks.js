@@ -77,7 +77,10 @@ router.route('/mocks/:id')
  * @return {Object} The filtered object
  */
 function filter(params) {
-    return allow(params, ["_id", "method", "status", "headers", "template"]);
+    return allow(params, ["path", "method", "status", "headers", "template"]);
 }
+
+// ensures the unique index on path
+db.mocks.ensureIndex({ fieldName: 'path', unique: true });
 
 module.exports = router;
