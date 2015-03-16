@@ -1,8 +1,9 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
+            <li ng-class='{ active: PAGE === "home" }'><a href="/">Home</a></li>
             <li ng-class='{ active: PAGE === "mocks" }'><a href="/mocks">Mocks</a></li>
-            <!-- <li ng-class='{ active: PAGE === "helpers" }'><a href="/helpers">Helpers</a></li> -->
+            <li ng-class='{ active: PAGE === "helpers" }'><a href="/helpers">Helpers</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li ng-class='{ active: PAGE === "logs" }'><a href="/logs">Logs</a></li>

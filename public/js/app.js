@@ -2,9 +2,14 @@
 
     'use strict';
 
-    angular.module('MockServerApp', ["ngRoute", "ngResource", "ngMessages"])
+    angular.module('MockServerApp', ["ngRoute", "ngResource"])
         .config(function($routeProvider, $locationProvider) {
             $routeProvider
+                .when('/', {
+                    controller: "HomeController",
+                    controllerAs: 'vm',
+                    templateUrl: "views/home.html"
+                })
                 .when('/mocks', {
                     controller: "MocksIndexController",
                     controllerAs: 'vm',
