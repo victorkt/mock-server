@@ -10,6 +10,7 @@
                     controllerAs: 'vm',
                     templateUrl: "views/home.html"
                 })
+
                 .when('/mocks', {
                     controller: "MocksIndexController",
                     controllerAs: 'vm',
@@ -25,6 +26,7 @@
                     controllerAs: 'vm',
                     templateUrl: "views/mocks/edit.html"
                 })
+
                 .when('/helpers', {
                     controller: "HelpersIndexController",
                     controllerAs: 'vm',
@@ -40,6 +42,7 @@
                     controllerAs: 'vm',
                     templateUrl: "views/helpers/edit.html"
                 })
+                
                 .otherwise({
                     redirectTo: '/'
                 });

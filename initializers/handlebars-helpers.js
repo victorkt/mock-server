@@ -7,8 +7,8 @@ var Handlebars = require('handlebars'),
 function setupHelpers() {
     db.helpers.findAsync({}).then(function(helpers) {
         helpers.forEach(function(helper) {
-            Handlebars.unregisterHelper(helper._id);
-            Handlebars.registerHelper(helper._id, eval("(" + helper.fn + ")"));
+            Handlebars.unregisterHelper(helper.name);
+            Handlebars.registerHelper(helper.name, eval("(" + helper.fn + ")"));
         });
     }).catch(function(err) {
         console.error(err.stack);

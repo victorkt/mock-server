@@ -1,0 +1,23 @@
+<div class="row form-group">
+    <div class="col-sm-10">
+        <input type="search" class="form-control" placeholder="Search" ng-model="vm.query" />
+    </div>
+    <div class="col-sm-2" style="text-align: right">
+        <a class="btn btn-primary" href="/helpers/new">New Helper</a>
+    </div>
+</div>
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th width="20%">Name</th>
+            <th width="80%">Function</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="helper in vm.helpers | filter: vm.query">
+            <td class="center"><a href="#" ng-click="vm.show(helper._id)">{{ helper.name }}</a></td>
+            <td class="center">{{ helper.fn | firstLine }}</td>
+        </tr>
+    </tbody>
+</table>

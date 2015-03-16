@@ -1,0 +1,6 @@
+<h2 ng-hide="vm.helper.name">New Helper</h2>
+<h2 ng-show="vm.helper.name">{{ vm.helper.name }}</h2>
+
+<hr/>
+
+<div ng-include='"views/helpers/_form.html"' ng-init="forms = {}"></div>

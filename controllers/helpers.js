@@ -54,6 +54,7 @@ router.route('/helpers/:id')
         var helper = filter(req.body);
         db.helpers.updateAsync({ _id: req.params.id }, helper, {}).then(function(numUpdated) {
             if(!numUpdated) return next();
+            reloadHelpers();
             res.json(helper);
         }).catch(next);
     })
@@ -66,6 +67,7 @@ router.route('/helpers/:id')
     .delete(function(req, res, next) {
         db.helpers.removeAsync({ _id: req.params.id }).then(function(numDeleted) {
             if(!numDeleted) return next();
+            reloadHelpers();
             res.status(204).end();
         }).catch(next);
     });
@@ -78,7 +80,7 @@ router.route('/helpers/:id')
  * @return {Object} The filtered object
  */
 function filter(params) {
-    return allow(params, ["_id", "fn"]);
+    return allow(params, ["name", "fn"]);
 }
 
 /**
@@ -87,5 +89,8 @@ function filter(params) {
 function reloadHelpers() {
     require('../initializers/handlebars-helpers')();
 }
+
+// ensures the unique index on name
+db.helpers.ensureIndex({ fieldName: 'name', unique: true });
 
 module.exports = router;

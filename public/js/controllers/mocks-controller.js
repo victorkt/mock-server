@@ -21,7 +21,7 @@
     function MocksNewController($scope, $rootScope, Mock, $location) {
         $rootScope.PAGE = "mocks";
         var vm = this;
-        vm.mock =  new Mock({
+        vm.mock = new Mock({
             path: '',
             method: 'GET',
             status: 200,

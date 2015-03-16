@@ -1,7 +1,3 @@
-<!-- <div class="alert alert-info" role="alert">
-    <span class="glyphicon glyphicon-info-sign"></span> Fields marked with * are required.
-</div> -->
-
 <form name="forms.formMock" novalidate class="form-horizontal">
     <div class="form-group" ng-class="{ 'has-error' : forms.formMock.path.$invalid && !forms.formMock.path.$pristine }">
         <label class="col-sm-2 control-label">Path *</label>
@@ -13,7 +9,7 @@
                 Path is required.
             </p>
             <p ng-show="forms.formMock.path.$error.pattern && !forms.formMock.path.$pristine" class="help-block">
-                Path cannot start with "/" and can have only letters, numbers and underscore (_).
+                Path cannot start with "/" and can have only letters, numbers, and underscore (_).
             </p>
         </div>
     </div>
