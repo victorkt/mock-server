@@ -4,12 +4,14 @@ var express = require('express'),
     db = require('./database'),
     mocks = require('../controllers/mocks'),
     helpers = require('../controllers/helpers'),
+    logs = require('../controllers/logs'),
     mockedRoute = require('../controllers/api'),
     router = express.Router();
 
 // setup routes
 router.use(mocks);
 router.use(helpers);
+router.use(logs);
 
 // setup mocked routes middleware
 router.use('/:id(*)', function(req, res, next) {

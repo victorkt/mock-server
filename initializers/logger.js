@@ -7,7 +7,8 @@ var morgan = require('morgan'),
 var opts = {
     stream: {
         write: function(msg) {
-            db.logs.insert(JSON.parse(msg));
+            var log = JSON.parse(msg);
+            if(log.mock !== '-') db.logs.insert(log);
         }
     }
 };

@@ -1,0 +1,26 @@
+<div class="row form-group">
+    <div class="col-sm-12">
+        <input type="search" class="form-control" placeholder="Search" ng-model="vm.query" />
+    </div>
+</div>
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th width="20%">Date</th>
+            <th width="30%">Mock Path</th>
+            <th width="15%">Request Method</th>
+            <th width="20%">Response Status</th>
+            <th width="15%">Response Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="log in vm.logs | filter: vm.query">
+            <td class="center">{{ log.date | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+            <td class="center"><a href="#" ng-click="vm.show(log._id)">{{ log.mock }}</a></td>
+            <td class="center">{{ log.request.method }}</td>
+            <td class="center">{{ log.response.status }}</td>
+            <td class="center">{{ log.response.time }} ms</td>
+        </tr>
+    </tbody>
+</table>

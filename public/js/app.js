@@ -42,6 +42,12 @@
                     controllerAs: 'vm',
                     templateUrl: "views/helpers/edit.html"
                 })
+
+                .when('/logs', {
+                    controller: "LogsController",
+                    controllerAs: 'vm',
+                    templateUrl: "views/logs/index.html"
+                })
                 
                 .otherwise({
                     redirectTo: '/'
