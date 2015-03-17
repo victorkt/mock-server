@@ -7,7 +7,7 @@
 
 
     function Log($resource) {
-        return $resource('/api/logs/:_id', { _id: "@_id" });
+        return $resource('api/logs/:_id', { _id: "@_id" });
     }
 
 })();

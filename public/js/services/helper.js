@@ -7,7 +7,7 @@
 
 
     function Helper($resource) {
-        return $resource('/api/helpers/:_id', { _id: "@_id" }, {
+        return $resource('api/helpers/:_id', { _id: "@_id" }, {
             'update': { method: 'PATCH' }
         });
     }

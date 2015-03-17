@@ -7,7 +7,7 @@
 
 
     function Mock($resource) {
-        return $resource('/api/mocks/:_id', { _id: "@_id" }, {
+        return $resource('api/mocks/:_id', { _id: "@_id" }, {
             'update': { method: 'PATCH' }
         });
     }
