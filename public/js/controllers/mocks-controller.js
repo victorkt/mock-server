@@ -14,7 +14,7 @@
         vm.mocks = Mock.query();
 
         vm.show = function(id) {
-            $location.url('/mocks/' + id);
+            $location.url('mocks/' + id);
         };
     }
 
@@ -34,7 +34,7 @@
                 $scope.$broadcast('record:invalid');
             } else {
                 vm.mock.$save();
-                $location.url('/mocks');
+                $location.url('mocks/');
             }
         };
     }
@@ -49,12 +49,12 @@
                 vm.mock = updatedRecord;
             });
 
-            $location.url('/mocks');
+            $location.url('mocks/');
         };
 
         vm.delete = function() {
             vm.mock.$delete();
-            $location.url('/mocks');
+            $location.url('mocks/');
         };
     }
 

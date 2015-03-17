@@ -14,7 +14,7 @@
         vm.helpers = Helper.query();
 
         vm.show = function(id) {
-            $location.url('/helpers/' + id);
+            $location.url('helpers/' + id);
         };
     }
 
@@ -31,7 +31,7 @@
                 $scope.$broadcast('record:invalid');
             } else {
                 vm.helper.$save();
-                $location.url('/helpers');
+                $location.url('helpers/');
             }
         };
     }
@@ -46,12 +46,12 @@
                 vm.helper = updatedRecord;
             });
 
-            $location.url('/helpers');
+            $location.url('helpers/');
         };
 
         vm.delete = function() {
             vm.helper.$delete();
-            $location.url('/helpers');
+            $location.url('helpers/');
         };
     }
 
