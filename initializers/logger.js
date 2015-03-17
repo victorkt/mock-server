@@ -19,6 +19,12 @@ morgan.token('id', function getId(req) {
     return null;
 });
 
+// create token :mockpath
+morgan.token('mockpath', function getMockPath(req) {
+    if(req.mock) return req.mock.path;
+    return null;
+});
+
 // create token :reqbody
 morgan.token('reqbody', function getReqBody(req) {
     return JSON.stringify(req.body)
@@ -27,6 +33,6 @@ morgan.token('reqbody', function getReqBody(req) {
 });
 
 // set log format for morgan
-var format = '{ "mock": ":id", "date": ":date[iso]", "request": { "method": ":method", "headers": ":req[header]", "body": ":reqbody" }, "response": { "time": :response-time, "status": :status } }';
+var format = '{ "mock": ":id", "path": ":mockpath", "date": ":date[iso]", "request": { "method": ":method", "url": ":url", "headers": ":req[header]", "body": ":reqbody" }, "response": { "time": :response-time, "status": :status } }';
 
 module.exports = morgan(format, opts);

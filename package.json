@@ -1,7 +1,7 @@
 {
   "name": "mock-server",
   "version": "0.1.0",
-  "description": "A simple mock server with dynamic routes.",
+  "description": "A simple mock server with dynamic routes and templated responses.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -7,20 +7,39 @@
 <table class="table table-hover table-bordered">
     <thead>
         <tr>
-            <th width="20%">Date</th>
-            <th width="30%">Mock Path</th>
-            <th width="15%">Request Method</th>
-            <th width="20%">Response Status</th>
-            <th width="15%">Response Time</th>
+            <th width="15%">Date</th>
+            <th width="25%">Mock Path</th>
+            <th width="5%">Request Method</th>
+            <th width="40%">Request URL</th>
+            <th width="5%">Response Status</th>
+            <th width="10%">Response Time</th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="log in vm.logs | filter: vm.query">
-            <td class="center">{{ log.date | date:'dd/MM/yyyy HH:mm:ss' }}</td>
-            <td class="center"><a href="#" ng-click="vm.show(log._id)">{{ log.mock }}</a></td>
+        <tr ng-repeat="log in vm.items.logs | filter: vm.query">
+            <td class="center">{{ log.date | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+            <td class="center"><a href="#" ng-click="vm.show(log._id)">/{{ log.path }}</a></td>
             <td class="center">{{ log.request.method }}</td>
+            <td class="center">{{ log.request.url }}</td>
             <td class="center">{{ log.response.status }}</td>
             <td class="center">{{ log.response.time }} ms</td>
         </tr>
     </tbody>
 </table>
+
+<nav class="navbar">
+    <ul class="pagination nav navbar-nav">
+        <li><button class="btn btn-danger" confirm-click confirmed-click="vm.purge()">Purge</button></li>
+    </ul>
+    <ul class="pagination nav navbar-right">
+        <li ng-class="{disabled: vm.currentPage <= 1}">
+            <a href="#" ng-click="vm.setPage(vm.currentPage - 1)">Previous</a>
+        </li>
+        <li ng-repeat="i in vm.totalItems() track by $index">
+            <a href="#" ng-click="vm.setPage($index + 1)">{{ $index + 1 }}</a>
+        </li>
+        <li ng-class="{disabled: vm.currentPage >= vm.totalItems().length}">
+            <a href="#" ng-click="vm.setPage(vm.currentPage + 1)">Next</a>
+        </li>
+    </ul>
+</nav>

@@ -70,7 +70,7 @@
 
     <div class="row form-group">
         <div style="text-align: center">
-            <button type="button" class="btn btn-danger" ng-click="vm.delete()" ng-show="vm.mock._id">Delete Mock</button>
+            <button type="button" class="btn btn-danger" confirm-click confirmed-click="vm.delete()" ng-show="vm.mock._id">Delete Mock</button>
             <span class="col-sm-offset-5"></span>
             <button type="button" class="btn btn-success" ng-click="vm.save()" ng-disabled="forms.formMock.$invalid">Save Mock</button>
         </div>

@@ -6,12 +6,8 @@
         .factory('Log', Log);
 
 
-    function Log($http) {
-        return {
-            get: function() {
-                return $http.get("/api/logs");
-            }
-        };
+    function Log($resource) {
+        return $resource('/api/logs/:_id', { _id: "@_id" });
     }
 
 })();

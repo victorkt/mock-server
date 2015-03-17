@@ -1,0 +1,25 @@
+{
+  "name": "mock-server",
+  "version": "0.1.0",
+  "homepage": "https://github.com/victorkohl/mock-server",
+  "authors": [
+    "Victor Kohl Tavares"
+  ],
+  "description": "A simple mock server with dynamic routes and templated responses.",
+  "main": "app.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "mock",
+    "api"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
