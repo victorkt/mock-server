@@ -30,26 +30,28 @@
         });
 
         vm.save = function() {
-            if($scope.forms.formMock.$invalid) {
-                $scope.$broadcast('record:invalid');
-            } else {
-                vm.mock.$save();
-                $location.url('mocks/');
+            if(vm.forms.formMock.$valid) {
+                vm.mock.$save().then(function() {
+                    $location.url('mocks/');
+                }).catch(function(err) {
+                    $scope.$broadcast('server:message', err);
+                });
             }
         };
     }
 
-    function MocksEditController($rootScope, Mock, $location, $routeParams) {
+    function MocksEditController($scope, $rootScope, Mock, $location, $routeParams) {
         $rootScope.PAGE = "mocks";
         var vm = this;
         vm.mock = Mock.get({ _id: $routeParams.id });
 
         vm.save = function() {
-            vm.mock.$update(function(updatedRecord) {
+            vm.mock.$update().then(function(updatedRecord) {
                 vm.mock = updatedRecord;
+                $location.url('mocks/');
+            }).catch(function(err) {
+                $scope.$broadcast('server:message', err);
             });
-
-            $location.url('mocks/');
         };
 
         vm.delete = function() {

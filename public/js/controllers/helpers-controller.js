@@ -27,26 +27,28 @@
         });
 
         vm.save = function() {
-            if($scope.forms.formHelper.$invalid) {
-                $scope.$broadcast('record:invalid');
-            } else {
-                vm.helper.$save();
-                $location.url('helpers/');
+            if(vm.forms.formHelper.$valid) {
+                vm.helper.$save().then(function() {
+                    $location.url('helpers/');
+                }).catch(function(err) {
+                    $scope.$broadcast('server:message', err);
+                });
             }
         };
     }
 
-    function HelpersEditController($rootScope, Helper, $location, $routeParams) {
+    function HelpersEditController($scope, $rootScope, Helper, $location, $routeParams) {
         $rootScope.PAGE = "helpers";
         var vm = this;
         vm.helper = Helper.get({ _id: $routeParams.id });
 
         vm.save = function() {
-            vm.helper.$update(function(updatedRecord) {
+            vm.helper.$update().then(function(updatedRecord) {
                 vm.helper = updatedRecord;
+                $location.url('helpers/');
+            }).catch(function(err) {
+                $scope.$broadcast('server:message', err);
             });
-
-            $location.url('helpers/');
         };
 
         vm.delete = function() {
