@@ -1,22 +1,22 @@
 <server-message></server-message>
 
 <form name="vm.forms.formMock" novalidate class="form-horizontal">
-    <div class="form-group" ng-class="{ 'has-error' : forms.formMock.path.$invalid && !forms.formMock.path.$pristine }">
+    <div class="form-group" ng-class="{ 'has-error' : vm.forms.formMock.path.$invalid && !vm.forms.formMock.path.$pristine }">
         <label class="col-sm-2 control-label">Path *</label>
         <div class="col-sm-10">
             <input class="form-control" type="text" name="path" ng-model="vm.mock.path" required="true" 
                     ng-pattern="/^[a-zA-Z0-9_]+\/*[a-zA-Z0-9_]*$/" />
 
-            <p ng-show="forms.formMock.path.$error.required && !forms.formMock.path.$pristine" class="help-block">
+            <p ng-show="vm.forms.formMock.path.$error.required && !vm.forms.formMock.path.$pristine" class="help-block">
                 Path is required.
             </p>
-            <p ng-show="forms.formMock.path.$error.pattern && !forms.formMock.path.$pristine" class="help-block">
+            <p ng-show="vm.forms.formMock.path.$error.pattern && !vm.forms.formMock.path.$pristine" class="help-block">
                 Path cannot start with "/" and can have only letters, numbers, and underscore (_).
             </p>
         </div>
     </div>
     
-    <div class="row form-group" ng-class="{ 'has-error' : forms.formMock.method.$invalid && !forms.formMock.method.$pristine }">
+    <div class="row form-group" ng-class="{ 'has-error' : vm.forms.formMock.method.$invalid && !vm.forms.formMock.method.$pristine }">
         <label class="col-sm-2 control-label">Method *</label>
         <div class="col-sm-10">
             <select class="form-control" name="method" ng-model="vm.mock.method" required="true">
@@ -29,32 +29,32 @@
                 <option>OPTIONS</option>
             </select>
 
-            <p ng-show="forms.formMock.method.$error.required && !forms.formMock.method.$pristine" class="help-block">
+            <p ng-show="vm.forms.formMock.method.$error.required && !vm.forms.formMock.method.$pristine" class="help-block">
                 Method is required.
             </p>
         </div>
     </div>
     
-    <div class="row form-group" ng-class="{ 'has-error' : forms.formMock.status.$invalid && !forms.formMock.status.$pristine }">
+    <div class="row form-group" ng-class="{ 'has-error' : vm.forms.formMock.status.$invalid && !vm.forms.formMock.status.$pristine }">
         <label class="col-sm-2 control-label">Response Status *</label>
         <div class="col-sm-10">
             <input class="form-control" name="status" type="text" required="true" ng-model="vm.mock.status" ng-pattern="/^[0-9]+$/" />
 
-            <p ng-show="forms.formMock.status.$error.required && !forms.formMock.status.$pristine" class="help-block">
+            <p ng-show="vm.forms.formMock.status.$error.required && !vm.forms.formMock.status.$pristine" class="help-block">
                 Response Status is required.
             </p>
-            <p ng-show="forms.formMock.status.$error.pattern && !forms.formMock.status.$pristine" class="help-block">
+            <p ng-show="vm.forms.formMock.status.$error.pattern && !vm.forms.formMock.status.$pristine" class="help-block">
                 Response Status must be a number.
             </p>
         </div>
     </div>
     
-    <div class="row form-group" ng-class="{ 'has-error' : forms.formMock.headers.$invalid && !forms.formMock.headers.$pristine }">
+    <div class="row form-group" ng-class="{ 'has-error' : vm.forms.formMock.headers.$invalid && !vm.forms.formMock.headers.$pristine }">
         <label class="col-sm-2 control-label">Headers</label>
         <div class="col-sm-10">
             <input class="form-control" name="headers" type="text" ng-model="vm.mock.headers"
                     ng-pattern="/^([\w\d\-_\/]+\s*:\s*[\w\d\-_\/]+)+(\s*,\s*[\w\d\-_\/]+\s*:\s*[\w\d\-_\/]+)*$/" />
-            <p ng-show="forms.formMock.headers.$error.pattern && !forms.formMock.headers.$pristine" class="help-block">
+            <p ng-show="vm.forms.formMock.headers.$error.pattern && !vm.forms.formMock.headers.$pristine" class="help-block">
                 Headers must be in the following format: <b>Name: Value, AnotherKey: Value2</b>.<br />
                 Example: <b>Accept: application/json</b>
             </p>
@@ -74,7 +74,7 @@
         <div style="text-align: center">
             <button type="button" class="btn btn-danger" confirm-click confirmed-click="vm.delete()" ng-show="vm.mock._id">Delete Mock</button>
             <span class="col-sm-offset-5"></span>
-            <button type="button" class="btn btn-success" ng-click="vm.save()" ng-disabled="forms.formMock.$invalid">Save Mock</button>
+            <button type="button" class="btn btn-success" ng-click="vm.save()" ng-disabled="vm.forms.formMock.$invalid">Save Mock</button>
         </div>
     </div>
 </form>

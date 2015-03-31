@@ -2,27 +2,27 @@
 
 <form name="vm.forms.formHelper" novalidate class="form-horizontal">
 
-    <div class="form-group" ng-class="{ 'has-error' : forms.formHelper.name.$invalid && !forms.formHelper.name.$pristine }">
+    <div class="form-group" ng-class="{ 'has-error' : vm.forms.formHelper.name.$invalid && !vm.forms.formHelper.name.$pristine }">
         <label class="col-sm-2 control-label">Name *</label>
         <div class="col-sm-10">
             <input class="form-control" type="text" name="name" ng-model="vm.helper.name" required="true" 
                     ng-pattern="/^[a-zA-Z_]+$/" />
 
-            <p ng-show="forms.formHelper.name.$error.required && !forms.formHelper.name.$pristine" class="help-block">
+            <p ng-show="vm.forms.formHelper.name.$error.required && !vm.forms.formHelper.name.$pristine" class="help-block">
                 Name is required.
             </p>
-            <p ng-show="forms.formHelper.name.$error.pattern && !forms.formHelper.name.$pristine" class="help-block">
+            <p ng-show="vm.forms.formHelper.name.$error.pattern && !vm.forms.formHelper.name.$pristine" class="help-block">
                 Name can have only letters and underscore (_).
             </p>
         </div>
     </div>
     
-    <div class="row form-group" ng-class="{ 'has-error' : forms.formHelper.fn.$invalid && !forms.formHelper.fn.$pristine }">
+    <div class="row form-group" ng-class="{ 'has-error' : vm.forms.formHelper.fn.$invalid && !vm.forms.formHelper.fn.$pristine }">
         <label class="col-sm-2 control-label">Function *</label>
         <div class="col-sm-10">
             <textarea class="form-control" name="fn" ng-model="vm.helper.fn" required="true" rows="10"></textarea>
 
-            <p ng-show="forms.formHelper.fn.$error.required && !forms.formHelper.fn.$pristine" class="help-block">
+            <p ng-show="vm.forms.formHelper.fn.$error.required && !vm.forms.formHelper.fn.$pristine" class="help-block">
                 Function is required.
             </p>
         </div>
@@ -34,7 +34,7 @@
         <div style="text-align: center">
             <button type="button" class="btn btn-danger" confirm-click confirmed-click="vm.delete()" ng-show="vm.helper._id">Delete Helper</button>
             <span class="col-sm-offset-5"></span>
-            <button type="button" class="btn btn-success" ng-click="vm.save()" ng-disabled="forms.formHelper.$invalid">Save Helper</button>
+            <button type="button" class="btn btn-success" ng-click="vm.save()" ng-disabled="vm.forms.formHelper.$invalid">Save Helper</button>
         </div>
     </div>
 
