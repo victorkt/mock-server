@@ -28,7 +28,7 @@
         };
 
         vm.purge = function() {
-            m.currentPage = 1;
+            vm.currentPage = 1;
             vm.items = Log.delete();
         };
 
