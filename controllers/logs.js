@@ -13,7 +13,7 @@ router.route('/logs')
      *  Lists all existing logs.
      */
     .get(function(req, res, next) {
-        var limit = 5;
+        var limit = 50;
         var skip = (isNaN(req.query.page) || req.query.page < 1) ? 0 : (req.query.page - 1) * limit;
         var query = filter(req.query);
 

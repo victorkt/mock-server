@@ -3,14 +3,15 @@
     'use strict';
 
     angular.module('MockServerApp')
-        .controller('LogsController', LogsController);
+        .controller('LogsIndexController', LogsIndexController)
+        .controller('LogsShowController', LogsShowController);
 
 
-    function LogsController($rootScope, Log) {
+    function LogsIndexController($rootScope, Log, $location, $routeParams) {
         $rootScope.PAGE = "logs";
         var vm = this;
         vm.currentPage = 1;
-        vm.items = Log.get();
+        vm.items = Log.get($routeParams);
 
         vm.totalItems = function() {
             var total = vm.items.total || 0;
@@ -29,7 +30,17 @@
         vm.purge = function() {
             m.currentPage = 1;
             vm.items = Log.delete();
-        }
+        };
+
+        vm.show = function(id) {
+            $location.url('logs/' + id);
+        };
+    }
+
+    function LogsShowController($rootScope, Log, $routeParams) {
+        $rootScope.PAGE = "logs";
+        var vm = this;
+        vm.log = Log.get({ _id: $routeParams.id });
     }
 
 })();

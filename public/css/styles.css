@@ -11,6 +11,10 @@ td {
   text-align: center;
 }
 
+.right {
+  text-align: right;
+}
+
 h1 a:link {
   text-decoration: none;
 }

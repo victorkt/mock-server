@@ -44,9 +44,14 @@
                 })
 
                 .when('/logs', {
-                    controller: "LogsController",
+                    controller: "LogsIndexController",
                     controllerAs: 'vm',
                     templateUrl: "views/logs/index.html"
+                })
+                .when('/logs/:id', {
+                    controller: "LogsShowController",
+                    controllerAs: 'vm',
+                    templateUrl: "views/logs/show.html"
                 })
                 
                 .otherwise({
