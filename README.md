@@ -1,5 +1,5 @@
 # Mock Server #
 
-A simple mock server with dynamic routes and templated responses.
+A simple mock server that responds to dynamic routes with templated responses.
 
 > Under development

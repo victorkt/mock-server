@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+  * Mock Server *
+
+  A simple mock server that responds to dynamic routes with templated responses.
+
+  Author: Victor Kohl Tavares
+-->
+<html ng-app="MockServerApp">
+<head>
+  <title>Mock Server</title>
+  <base href="/">
+
+  <!-- COMPONENTS -->
+  <link rel="stylesheet" type="text/css" href="components/angular-material/angular-material.min.css">
+
+  <!-- APP -->
+  <% if(process.env.NODE_ENV === 'production') { %>
+  <link rel="stylesheet" href="css/style.min.css">
+  <% } else { %>
+  <!-- include: "type": "css", "files": "css/**/*.css" -->
+  <% } %>
+</head>
+<body>
+
+  <div id="main-view" ui-view>
+  </div>
+
+  <!-- COMPONENTS -->
+  <script type="text/javascript" src="components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="components/angular-resource/angular-resource.min.js"></script>
+  <script type="text/javascript" src="components/angular-animate/angular-animate.min.js"></script>
+  <script type="text/javascript" src="components/angular-aria/angular-aria.min.js"></script>
+  <script type="text/javascript" src="components/angular-material/angular-material.min.js"></script>
+  <script type="text/javascript" src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+  <!-- APP -->
+  <% if(process.env.NODE_ENV === 'production') { %>
+  <script type="text/javascript" src="js/app.min.js"></script>
+  <% } else { %>
+  <!-- include: "type": "js", "files": "js/**/*.js" -->
+  <% } %>
+</body>
+</html>

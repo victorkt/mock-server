@@ -1,28 +1,27 @@
 "use strict";
 
 var express = require('express'),
+    path = require('path'),
     bodyParser = require('body-parser'),
-    routes = require('./initializers/routes'),
     db = require('./initializers/database'),
     logger = require('./initializers/logger'),
+    cons = require('consolidate'),
     app = express();
 
+app.engine('html', cons.lodash);
+
+// view engine setup
+app.set('views', path.join(__dirname, 'public'));
+app.set('view engine', 'html');
+
 // middleware
-app.use(express.static('./public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-// setup handlebars helpers
-require('./initializers/handlebars-helpers')();
+app.use(express.static(path.join(__dirname, 'public')));
 
 // setup routes
+require('./initializers/routes')(app);
 app.use(logger);
-app.use('/api', routes);
-
-// route to handle all angular requests
-app.get('*', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html');
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
