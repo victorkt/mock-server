@@ -1,6 +1,14 @@
-#left-menu {
-  border-right: 1px #CCCCCC solid;
-  background-color: #F5F5F5; }
+/**
+ * COLOR VARIABLES
+ */
+/**
+ * STYLES
+ */
+html, body {
+  min-height: 100% !important;
+  height: 100%;
+  margin: 0;
+  padding: 0; }
 
 #item-list {
   border-right: 1px #CCCCCC solid;
@@ -13,7 +21,7 @@
   background-color: #F5F5F5; }
 
 .code {
-  font-family: Consolas, "Courier", "Courier New", monospace;
+  font-family: "Consolas", "Courier", "Courier New", monospace;
   font-size: 0.8em; }
 
 .active-pane .md-button {

@@ -1,27 +1,42 @@
-#left-menu {
-    border-right: 1px #CCCCCC solid;
-    background-color: #F5F5F5;
+/**
+ * COLOR VARIABLES
+ */
+$white: #FFFFFF;
+$red: #F74E48;
+$darker-grey: #CCCCCC;
+$dark-grey: #E4E4E4;
+$light-gray: #EFEFEF;
+$lighter-gray: #F5F5F5;
+
+/**
+ * STYLES
+ */
+html, body {
+    min-height: 100% !important;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 #item-list {
-    border-right: 1px #CCCCCC solid;
-    background-color: #EFEFEF;
+    border-right: 1px $darker-grey solid;
+    background-color: $light-gray;
 }
 #item-list .md-subheader {
-    background-color: #EFEFEF;
+    background-color: $light-gray;
 }
 
 .form-card {
-    background-color: #F5F5F5;
+    background-color: $lighter-gray;
 }
 
 .code {
-  font-family: Consolas, "Courier", "Courier New", monospace;
+  font-family: "Consolas", "Courier", "Courier New", monospace;
   font-size: 0.8em;
 }
 
 .active-pane .md-button {
-    background-color: #E4E4E4;
+    background-color: $dark-grey;
 }
 
 .fab-new {
@@ -33,7 +48,7 @@
 }
 
 .error-message {
-    color: #FFFFFF;
-    background-color: #F74E48;
+    color: $white;
+    background-color: $red;
     padding: 10px;
 }

@@ -23,12 +23,9 @@
 </head>
 <body>
 
-  <div id="main-view">
+  <div id="main-view" layout="column">
     <div ng-include="'partials/_nav.html'"></div>
-    <div layout="row" layout-align="start start">
-      <div flex="15" ng-include="'partials/_left_menu.html'"></div>
-      <div flex ui-view></div>
-    </div>
+    <div id="main-content" layout layout-align="center start" ui-view></div>
   </div>
 
   <!-- COMPONENTS -->

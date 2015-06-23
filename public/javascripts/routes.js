@@ -20,7 +20,7 @@
         $stateProvider
             .state('mocks', {
                 url: '/mocks',
-                template: '<div ui-view></div>',
+                templateUrl: 'partials/mocks/mocks.html',
                 abstract: true
             })
                 .state('mocks.index', {
