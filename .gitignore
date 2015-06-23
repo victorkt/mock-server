@@ -1,4 +1,7 @@
-public/
+public/components/
+public/css/
+public/js/
+public/app.html
 node_modules/
 db/*.db
 .DS_Store

@@ -18,12 +18,14 @@
   <% if(process.env.NODE_ENV === 'production') { %>
   <link rel="stylesheet" href="css/style.min.css">
   <% } else { %>
-  <!-- include: "type": "css", "files": "css/**/*.css" -->
+  <!-- include: "type": "css", "files": "stylesheets/**/*.css" -->
   <% } %>
 </head>
 <body>
 
-  <div id="main-view" ui-view>
+  <div id="main-view">
+    <ng-include src="partials/_nav.html"></ng-include>
+    <div ui-view></div>
   </div>
 
   <!-- COMPONENTS -->
@@ -38,7 +40,7 @@
   <% if(process.env.NODE_ENV === 'production') { %>
   <script type="text/javascript" src="js/app.min.js"></script>
   <% } else { %>
-  <!-- include: "type": "js", "files": "js/**/*.js" -->
+  <!-- include: "type": "js", "files": "javascripts/**/*.js" -->
   <% } %>
 </body>
 </html>

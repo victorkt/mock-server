@@ -5,14 +5,14 @@ module.exports = function(grunt) {
         // JS TASKS ================================================================
         // check all js files for errors
         jshint: {
-            all: ['site/js/**/*.js']
+            all: ['public/javascripts/**/*.js']
         },
         
         // take all the js files and minify them into app.min.js
         uglify: {
             build: {
                 files: {
-                    'public/js/app.min.js': ['site/javascripts/**/*.js', 'site/javascripts/*.js']
+                    'public/js/app.min.js': ['public/javascripts/**/*.js', 'public/javascripts/*.js']
                 }
             }
         },
@@ -22,20 +22,8 @@ module.exports = function(grunt) {
         cssmin: {
             build: {
                 files: {
-                    'public/css/style.min.css': ['site/stylesheets/**/*.css', 'site/stylesheets/*.css']
+                    'public/css/style.min.css': ['public/stylesheets/**/*.css', 'public/stylesheets/*.css']
                 }
-            }
-        },
-
-        // BUILD TASKS ==============================================================
-        // include all javascript and css files on index.html
-        copy: {
-            build: {
-                files: [
-                    // includes files within path and its sub-directories
-                    { cwd: 'site/javascripts/', src: ['**'], dest: 'public/js/' },
-                    { cwd: 'site/stylesheets/', src: ['**'], dest: 'public/css/' },
-                ]
             }
         },
         
@@ -43,7 +31,7 @@ module.exports = function(grunt) {
         // include all javascript and css files on index.html
         includeSource: {
             options: {
-                basePath: 'site',
+                basePath: 'public',
                 templates: {
                     html: {
                         js: '<script type="text/javascript" src="{filePath}"></script>',
@@ -53,7 +41,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'public/app.html': 'site/index.html'
+                    'public/app.html': 'public/app.tpl.html'
                 }
             }
         },
@@ -61,19 +49,16 @@ module.exports = function(grunt) {
         // watch css and js files and process the above tasks
         watch: {
             css: {
-                files: ['site/css/**/*.css'],
+                files: ['public/stylesheets/**/*.css'],
                 tasks: []
             },
             js: {
-                files: ['site/js/**/*.js'],
+                files: ['public/javascripts/**/*.js'],
                 tasks: ['jshint']
             },
             all: {
-                files: ['site/**/*.js'],
-                tasks: ['includeSource'],
-                options: {
-                    event: ['added', 'deleted']
-                }
+                files: ['public/javascripts/**/*.js', 'public/app.tpl.html'],
+                tasks: ['includeSource']
             }
         },
         
@@ -135,7 +120,6 @@ module.exports = function(grunt) {
         
     });
     
-    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-include-source');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -146,6 +130,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-karma');
     // grunt.loadNpmTasks('grunt-protractor-runner');
     
-    grunt.registerTask('default', ['cssmin', 'jshint', 'uglify', 'includeSource', 'concurrent']);
+    grunt.registerTask('build', ['cssmin', 'jshint', 'uglify', 'includeSource']);
+    grunt.registerTask('dev', ['jshint', 'includeSource', 'concurrent']);
 
 };
