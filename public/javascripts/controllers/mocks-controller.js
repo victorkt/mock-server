@@ -3,52 +3,60 @@
     'use strict';
 
     angular.module('MockServerApp')
-        .controller('MocksIndexController', MocksIndexController)
-        .controller('MocksNewController', MocksNewController)
-        .controller('MocksEditController', MocksEditController);
+        .controller('MocksIndexController', ['$scope', 'Mock', '$location', '$window', MocksIndexController])
+        .controller('MocksNewController', ['$scope', 'Mock', '$location', MocksNewController])
+        .controller('MocksEditController', ['$scope', 'Mock', '$location', '$stateParams', MocksEditController]);
 
 
-    function MocksIndexController($rootScope, Mock, $location) {
-        $rootScope.PAGE = "mocks";
+    function MocksIndexController($scope, Mock, $location, $window) {
         var vm = this;
-        vm.mocks = Mock.query();
-
-        vm.show = function(id) {
-            $location.url('mocks/' + id);
+        vm.editMock = function(mock) {
+            vm.selectedMock = mock;
+            $location.url('mocks/' + mock._id);
         };
+        vm.loadMocks = function() {
+            vm.selectedMock = undefined;
+            vm.mocks = Mock.query();
+        };
+        vm.openMock = function(mock) {
+            $window.open('api/' + mock.path, '_blank');
+        };
+
+        vm.loadMocks();
+
+        $scope.$on('mock:created', vm.loadMocks);
+        $scope.$on('mock:saved', vm.loadMocks);
+        $scope.$on('mock:deleted', vm.loadMocks);
     }
 
-    function MocksNewController($scope, $rootScope, Mock, $location) {
-        $rootScope.PAGE = "mocks";
+    function MocksNewController($scope, Mock, $location) {
         var vm = this;
         vm.mock = new Mock({
             path: '',
             method: 'GET',
             status: 200,
-            headers: '',
+            headers: [],
             template: ''
         });
 
         vm.save = function() {
-            if(vm.forms.formMock.$valid) {
-                vm.mock.$save().then(function() {
-                    $location.url('mocks/');
-                }).catch(function(err) {
-                    $scope.$broadcast('server:message', err);
-                });
-            }
+            vm.mock.$save().then(function() {
+                $scope.$emit('mock:created');
+                $location.url('mocks');
+            }).catch(function(err) {
+                $scope.$broadcast('server:message', err);
+            });
         };
     }
 
-    function MocksEditController($scope, $rootScope, Mock, $location, $routeParams) {
-        $rootScope.PAGE = "mocks";
+    function MocksEditController($scope, Mock, $location, $stateParams) {
         var vm = this;
-        vm.mock = Mock.get({ _id: $routeParams.id });
+        vm.mock = Mock.get({ _id: $stateParams.id });
 
         vm.save = function() {
             vm.mock.$update().then(function(updatedRecord) {
-                vm.mock = updatedRecord;
-                $location.url('mocks/');
+                $scope.$emit('mock:saved', updatedRecord);
+                $location.url('mocks');
             }).catch(function(err) {
                 $scope.$broadcast('server:message', err);
             });
@@ -56,7 +64,8 @@
 
         vm.delete = function() {
             vm.mock.$delete();
-            $location.url('mocks/');
+            $scope.$emit('mock:deleted');
+            $location.url('mocks');
         };
     }
 

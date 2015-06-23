@@ -1,0 +1,39 @@
+#left-menu {
+    border-right: 1px #CCCCCC solid;
+    background-color: #F5F5F5;
+}
+
+#item-list {
+    border-right: 1px #CCCCCC solid;
+    background-color: #EFEFEF;
+}
+#item-list .md-subheader {
+    background-color: #EFEFEF;
+}
+
+.form-card {
+    background-color: #F5F5F5;
+}
+
+.code {
+  font-family: Consolas, "Courier", "Courier New", monospace;
+  font-size: 0.8em;
+}
+
+.active-pane .md-button {
+    background-color: #E4E4E4;
+}
+
+.fab-new {
+    position: absolute;
+    margin-top: -34px;
+    margin-left: -100px;
+    left:100%;
+    z-index: 9999;
+}
+
+.error-message {
+    color: #FFFFFF;
+    background-color: #F74E48;
+    padding: 10px;
+}

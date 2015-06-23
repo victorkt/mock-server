@@ -18,6 +18,15 @@ module.exports = function(grunt) {
         },
         
         // CSS TASKS ===============================================================
+        // preprocess CSS files using SASS
+        sass: {
+            build: {
+                files: {
+                    'public/stylesheets/style.css': 'public/stylesheets/style.css.scss'
+                }
+            }
+        },
+
         // take the processed style.css file and minify
         cssmin: {
             build: {
@@ -49,8 +58,8 @@ module.exports = function(grunt) {
         // watch css and js files and process the above tasks
         watch: {
             css: {
-                files: ['public/stylesheets/**/*.css'],
-                tasks: []
+                files: ['public/stylesheets/**/*.scss'],
+                tasks: ['sass']
             },
             js: {
                 files: ['public/javascripts/**/*.js'],
@@ -94,7 +103,7 @@ module.exports = function(grunt) {
         protractor: {
             options: {
                 // Location of your protractor config file
-                configFile: "protractor.conf.js",
+                configFile: 'protractor.conf.js',
                 
                 // Do you want the output to use fun colors?
                 noColor: false,
@@ -123,6 +132,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-include-source');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
@@ -130,7 +140,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-karma');
     // grunt.loadNpmTasks('grunt-protractor-runner');
     
-    grunt.registerTask('build', ['cssmin', 'jshint', 'uglify', 'includeSource']);
-    grunt.registerTask('dev', ['jshint', 'includeSource', 'concurrent']);
+    grunt.registerTask('build', ['sass', 'cssmin', 'jshint', 'uglify', 'includeSource']);
+    grunt.registerTask('dev', ['sass', 'jshint', 'includeSource', 'concurrent']);
 
 };

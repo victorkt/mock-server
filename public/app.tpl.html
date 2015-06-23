@@ -24,13 +24,17 @@
 <body>
 
   <div id="main-view">
-    <ng-include src="partials/_nav.html"></ng-include>
-    <div ui-view></div>
+    <div ng-include="'partials/_nav.html'"></div>
+    <div layout="row" layout-align="start start">
+      <div flex="15" ng-include="'partials/_left_menu.html'"></div>
+      <div flex ui-view></div>
+    </div>
   </div>
 
   <!-- COMPONENTS -->
   <script type="text/javascript" src="components/angular/angular.min.js"></script>
   <script type="text/javascript" src="components/angular-resource/angular-resource.min.js"></script>
+  <script type="text/javascript" src="components/angular-messages/angular-messages.min.js"></script>
   <script type="text/javascript" src="components/angular-animate/angular-animate.min.js"></script>
   <script type="text/javascript" src="components/angular-aria/angular-aria.min.js"></script>
   <script type="text/javascript" src="components/angular-material/angular-material.min.js"></script>

@@ -1,28 +1,28 @@
-<div class="row form-group">
-    <div class="col-sm-10">
-        <input type="search" class="form-control" placeholder="Search" ng-model="vm.query" />
-    </div>
-    <div class="col-sm-2" style="text-align: right">
-        <a class="btn btn-primary" href="mocks/new">New Mock</a>
-    </div>
+<!-- NEW MOCK -->
+<div class="fab-new" flex layout layout-align="end start">
+  <md-button class="md-fab md-hue-2" aria-label="New Mock" ui-sref="mocks.index.new">
+    <md-icon md-svg-src="images/add.svg"></md-icon>
+    <md-tooltip>New Mock</md-tooltip>
+  </md-button>
 </div>
 
-<table class="table table-hover table-bordered">
-    <thead>
-        <tr>
-            <th width="10%">Method</th>
-            <th width="80%">Path</th>
-            <th width="10%">&nbsp;</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="mock in vm.mocks | filter: vm.query">
-            <td class="center">{{ mock.method }}</td>
-            <td><a href="#" ng-click="vm.show(mock._id)">/{{ mock.path }}</a></td>
-            <td class="center">
-                <a href="api/{{ mock.path }}" class="btn btn-xs btn-success" target="_blank">Go</a>
-                <a href="logs?mock={{ mock._id }}" class="btn btn-xs btn-default">Logs</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div layout>
+
+  <!-- MOCKS LIST -->
+  <md-content layout-fill flex="30" id="item-list">
+    <md-subheader class="md-primary">Mocks</md-subheader>
+    <md-list>
+      <md-list-item ng-repeat="mock in vm.mocks" ng-click="vm.editMock(mock)"
+                    ng-class="{ 'active-pane': mock === vm.selectedMock }">
+        <img alt="{{ mock.method }}" ng-src="images/{{ mock.method | lowercase }}.svg" class="md-avatar" />
+        <p>{{ mock.path }}</p>
+        <md-icon md-svg-icon="images/link.svg" class="md-secondary" 
+                  ng-click="vm.openMock(mock)" aria-label="Go to mock"></md-icon>
+      </md-list-item>
+    </md-list>
+  </md-content>
+
+  <!-- MOCK FORM -->
+  <md-content flex style="padding: 10px" ui-view>
+  </md-content>
+</div>

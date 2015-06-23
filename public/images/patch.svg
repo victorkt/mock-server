@@ -1,0 +1,10 @@
+<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+ <g>
+  <title>Layer 1</title>
+  <g id="patch">
+   <path d="m0,0l50.01471,0l0,49.91212l-50.01471,0l0,-24.95606l0,-24.95606z" id="svg_2" stroke-width="5" fill="#795548"/>
+   <text fill="#ffffff" stroke-width="0" x="100.85747" y="81.05884" id="svg_1" font-size="24" font-family="RobotoDraft,Roboto,&#x27;Helvetica Neue',sans-serif" text-anchor="middle" xml:space="preserve" font-weight="normal" transform="matrix(0.5085778639039944,0,0,0.5085778639039944,-26.11837548167066,-11.570494027231284) " stroke="#000000">PATCH</text>
+  </g>
+ </g>
+</svg>
