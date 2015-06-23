@@ -22,7 +22,8 @@ html, body {
 
 .code {
   font-family: "Consolas", "Courier", "Courier New", monospace;
-  font-size: 0.8em; }
+  font-size: 0.8em;
+  line-height: 20px !important; }
 
 .active-pane .md-button {
   background-color: #E4E4E4; }

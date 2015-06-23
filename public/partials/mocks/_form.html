@@ -49,7 +49,7 @@
       <!-- TEMPLATE -->
       <md-input-container>
         <label>Template</label>
-        <textarea ng-model="vm.mock.template" rows="10" class="code" spellcheck="false"></textarea>
+        <textarea ng-model="vm.mock.template" rows="12" class="code" spellcheck="false"></textarea>
       </md-input-container>
 
     </md-card-content>
@@ -57,7 +57,7 @@
     <!-- BUTTONS -->
     <div class="md-actions" layout-padding layout="row" layout-align="end center">
       <md-button class="md-warn md-raised" ng-show="vm.mock._id" confirmed-click="vm.delete()"
-                  confirm-click="Are you sure you want to remove this Mock?'">Delete</md-button>
+                  confirm-click="Are you sure you want to delete this Mock?'">Delete</md-button>
       <div flex></div>
       <md-button class="md-primary md-raised" ng-click="vm.save()" ng-disabled="formMock.$invalid">Save</md-button>
     </div>

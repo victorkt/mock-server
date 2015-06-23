@@ -9,7 +9,7 @@
 <div layout layout-fill>
   <!-- MOCKS LIST -->
   <md-content layout-fill flex="30" id="item-list">
-    <md-subheader class="md-primary">Mocks</md-subheader>
+    <md-subheader class="md-primary" style="margin-top:5px">Mocks</md-subheader>
     <md-list>
       <md-list-item ng-repeat="mock in vm.mocks" ng-click="vm.editMock(mock)"
                     ng-class="{ 'active-pane': mock === vm.selectedMock }">

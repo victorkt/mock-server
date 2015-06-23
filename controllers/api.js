@@ -21,8 +21,8 @@ function mockedRoute(req, res, next) {
     body = template(binds);
 
     // sets headers and sends response
-    if(req.mock.headers) {
-        req.mock.headers.split(',').forEach(function(header) {
+    if(Array.isArray(req.mock.headers) && req.mock.headers.length) {
+        req.mock.headers.forEach(function(header) {
             var h = header.split(':');
             res.set(h[0].trim(), h[1].trim());
         });
