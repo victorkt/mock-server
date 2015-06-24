@@ -47,23 +47,23 @@
                 data: {
                     title: 'Helpers'
                 },
-                template: '<div ui-view></div>',
+                templateUrl: 'partials/helpers/helpers.html',
                 abstract: true
             })
                 .state('helpers.index', {
                     url: '',
                     templateUrl: 'partials/helpers/index.html',
-                    controller: 'MocksIndexController as vm'
+                    controller: 'HelpersIndexController as vm'
                 })
                     .state('helpers.index.new', {
                         url: '/new',
                         templateUrl: 'partials/helpers/new.html',
-                        controller: 'MocksNewController as vm'
+                        controller: 'HelpersNewController as vm'
                     })
                     .state('helpers.index.edit', {
                         url: '/:id',
                         templateUrl: 'partials/helpers/edit.html',
-                        controller: 'MocksEditController as vm'
+                        controller: 'HelpersEditController as vm'
                     })
             
             .state('logs', {
@@ -71,18 +71,18 @@
                 data: {
                     title: 'Logs'
                 },
-                template: '<div ui-view></div>',
+                templateUrl: 'partials/logs/logs.html',
                 abstract: true
             })
                 .state('logs.index', {
                     url: '',
                     templateUrl: 'partials/logs/index.html',
-                    controller: 'MocksIndexController as vm'
+                    controller: 'LogsIndexController as vm'
                 })
                 .state('logs.show', {
                     url: '/:id',
                     templateUrl: 'partials/logs/show.html',
-                    controller: 'MocksShowController as vm'
+                    controller: 'LogsShowController as vm'
                 });
     }
 

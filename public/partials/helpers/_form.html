@@ -1,41 +1,38 @@
-<server-message></server-message>
+<form name="formHelper" novalidate>
+  <md-card class="form-card">
+    <server-message></server-message>
 
-<form name="vm.forms.formHelper" novalidate class="form-horizontal">
+    <md-card-content>
 
-    <div class="form-group" ng-class="{ 'has-error' : vm.forms.formHelper.name.$invalid && !vm.forms.formHelper.name.$pristine }">
-        <label class="col-sm-2 control-label">Name *</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="name" ng-model="vm.helper.name" required="true" 
-                    ng-pattern="/^[a-zA-Z_]+$/" />
+      <!-- NAME -->
+      <md-input-container flex>
+        <label>Name</label>
+        <input name="name" ng-model="vm.helper.name" type="text" required autofocus />
 
-            <p ng-show="vm.forms.formHelper.name.$error.required && !vm.forms.formHelper.name.$pristine" class="help-block">
-                Name is required.
-            </p>
-            <p ng-show="vm.forms.formHelper.name.$error.pattern && !vm.forms.formHelper.name.$pristine" class="help-block">
-                Name can have only letters and underscore (_).
-            </p>
+        <div ng-messages="formHelper.name.$error" ng-show="formHelper.name.$dirty">
+          <div ng-message="required">This is required!</div>
         </div>
-    </div>
-    
-    <div class="row form-group" ng-class="{ 'has-error' : vm.forms.formHelper.fn.$invalid && !vm.forms.formHelper.fn.$pristine }">
-        <label class="col-sm-2 control-label">Function *</label>
-        <div class="col-sm-10">
-            <textarea class="form-control" name="fn" ng-model="vm.helper.fn" required="true" rows="10"></textarea>
+      </md-input-container>
 
-            <p ng-show="vm.forms.formHelper.fn.$error.required && !vm.forms.formHelper.fn.$pristine" class="help-block">
-                Function is required.
-            </p>
+      <!-- TEMPLATE -->
+      <md-input-container>
+        <label>Function code</label>
+        <textarea name="fn" ng-model="vm.helper.fn" rows="15" 
+                  class="code" spellcheck="false" required></textarea>
+
+        <div ng-messages="formHelper.fn.$error" ng-show="formHelper.fn.$dirty">
+          <div ng-message="required">This is required!</div>
         </div>
-    </div>
-    
-    <br /><br />
+      </md-input-container>
 
-    <div class="row form-group">
-        <div style="text-align: center">
-            <button type="button" class="btn btn-danger" confirm-click confirmed-click="vm.delete()" ng-show="vm.helper._id">Delete Helper</button>
-            <span class="col-sm-offset-5"></span>
-            <button type="button" class="btn btn-success" ng-click="vm.save()" ng-disabled="vm.forms.formHelper.$invalid">Save Helper</button>
-        </div>
-    </div>
+    </md-card-content>
 
+    <!-- BUTTONS -->
+    <div class="md-actions" layout-padding layout="row" layout-align="end center">
+      <md-button class="md-warn md-raised" ng-show="vm.helper._id" confirmed-click="vm.delete()"
+                  confirm-click="Are you sure you want to delete this Helper?'">Delete</md-button>
+      <div flex></div>
+      <md-button class="md-primary md-raised" ng-click="vm.save()" ng-disabled="formHelper.$invalid">Save</md-button>
+    </div>
+  </md-card>
 </form>
