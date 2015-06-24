@@ -38,7 +38,6 @@
             headers: [],
             template: ''
         });
-
         vm.save = function() {
             vm.mock.$save().then(function() {
                 $scope.$emit('mock:created');
@@ -51,8 +50,14 @@
 
     function MocksEditController($scope, Mock, $location, $stateParams) {
         var vm = this;
-        vm.mock = Mock.get({ _id: $stateParams.id });
-
+        vm.mock = { headers: [] }; // prevents `Can't interpolate` errors from md-chips
+        vm.loadMock = function() {
+            Mock.get({ _id: $stateParams.id })
+            .$promise
+            .then(function(mock) {
+                vm.mock = mock;
+            });
+        };
         vm.save = function() {
             vm.mock.$update().then(function(updatedRecord) {
                 $scope.$emit('mock:saved', updatedRecord);
@@ -61,12 +66,13 @@
                 $scope.$broadcast('server:message', err);
             });
         };
-
         vm.delete = function() {
             vm.mock.$delete();
             $scope.$emit('mock:deleted');
             $location.url('mocks');
         };
+
+        vm.loadMock();
     }
 
 })();

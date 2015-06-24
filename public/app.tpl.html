@@ -11,13 +11,13 @@
   <title>Mock Server</title>
   <base href="/">
 
+  <% if(process.env.NODE_ENV === 'production') { %>
+  <link rel="stylesheet" href="css/app.min.css">
+  <% } else { %>
   <!-- COMPONENTS -->
-  <link rel="stylesheet" type="text/css" href="components/angular-material/angular-material.min.css">
+  <link rel="stylesheet" type="text/css" href="components/angular-material/angular-material.css">
 
   <!-- APP -->
-  <% if(process.env.NODE_ENV === 'production') { %>
-  <link rel="stylesheet" href="css/style.min.css">
-  <% } else { %>
   <!-- include: "type": "css", "files": "stylesheets/**/*.css" -->
   <% } %>
 </head>
@@ -28,19 +28,19 @@
     <div id="main-content" layout layout-align="center start" ui-view></div>
   </div>
 
-  <!-- COMPONENTS -->
-  <script type="text/javascript" src="components/angular/angular.min.js"></script>
-  <script type="text/javascript" src="components/angular-resource/angular-resource.min.js"></script>
-  <script type="text/javascript" src="components/angular-messages/angular-messages.min.js"></script>
-  <script type="text/javascript" src="components/angular-animate/angular-animate.min.js"></script>
-  <script type="text/javascript" src="components/angular-aria/angular-aria.min.js"></script>
-  <script type="text/javascript" src="components/angular-material/angular-material.min.js"></script>
-  <script type="text/javascript" src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
-
-  <!-- APP -->
   <% if(process.env.NODE_ENV === 'production') { %>
   <script type="text/javascript" src="js/app.min.js"></script>
   <% } else { %>
+  <!-- COMPONENTS -->
+  <script type="text/javascript" src="components/angular/angular.js"></script>
+  <script type="text/javascript" src="components/angular-resource/angular-resource.js"></script>
+  <script type="text/javascript" src="components/angular-messages/angular-messages.js"></script>
+  <script type="text/javascript" src="components/angular-animate/angular-animate.js"></script>
+  <script type="text/javascript" src="components/angular-aria/angular-aria.js"></script>
+  <script type="text/javascript" src="components/angular-material/angular-material.js"></script>
+  <script type="text/javascript" src="components/angular-ui-router/release/angular-ui-router.js"></script>
+
+  <!-- APP -->
   <!-- include: "type": "js", "files": "javascripts/**/*.js" -->
   <% } %>
 </body>

@@ -6,8 +6,6 @@
         .controller('HomeController', HomeController);
 
 
-    function HomeController($rootScope) {
-        $rootScope.PAGE = "home";
-    }
+    function HomeController() {}
 
 })();

@@ -1,5 +1,7 @@
+'use strict';
+
 module.exports = function(grunt) {
-    
+
     grunt.initConfig({
         
         // JS TASKS ================================================================
@@ -12,7 +14,17 @@ module.exports = function(grunt) {
         uglify: {
             build: {
                 files: {
-                    'public/js/app.min.js': ['public/javascripts/**/*.js', 'public/javascripts/*.js']
+                    'public/js/app.min.js': [
+                        'public/components/angular/angular.min.js',
+                        'public/components/angular-animate/angular-animate.min.js',
+                        'public/components/angular-aria/angular-aria.min.js',
+                        'public/components/angular-messages/angular-messages.min.js',
+                        'public/components/angular-resource/angular-resource.min.js',
+                        'public/components/angular-material/angular-material.min.js',
+                        'public/components/angular-ui-router/release/angular-ui-router.min.js',
+                        'public/javascripts/**/*.js',
+                        'public/javascripts/*.js'
+                    ]
                 }
             }
         },
@@ -31,7 +43,11 @@ module.exports = function(grunt) {
         cssmin: {
             build: {
                 files: {
-                    'public/css/style.min.css': ['public/stylesheets/**/*.css', 'public/stylesheets/*.css']
+                    'public/css/app.min.css': [
+                        'public/components/angular-material/angular-material.min.css',
+                        'public/stylesheets/**/*.css',
+                        'public/stylesheets/*.css'
+                    ]
                 }
             }
         },

@@ -1,11 +1,12 @@
-<md-toolbar class="md-whiteframe-z1" id="top-toolbar" layout="row" layout-align="center end">
+<md-toolbar class="md-whiteframe-z1" id="top-toolbar" layout="row" layout-align="center end" 
+            ng-controller="TopToolbarController as ttc">
   <div flex="80" layout="column">
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Settings">
           <md-icon md-svg-icon="images/menu.svg"></md-icon>
         </md-button>
         <h2>
-          <span>Mocks</span>
+          <span>{{ ttc.state.current.data.title }}</span>
         </h2>
         <span flex></span>
     </div>

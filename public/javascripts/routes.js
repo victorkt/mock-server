@@ -20,6 +20,9 @@
         $stateProvider
             .state('mocks', {
                 url: '/mocks',
+                data: {
+                    title: 'Mocks'
+                },
                 templateUrl: 'partials/mocks/mocks.html',
                 abstract: true
             })
@@ -41,6 +44,9 @@
             
             .state('helpers', {
                 url: '/helpers',
+                data: {
+                    title: 'Helpers'
+                },
                 template: '<div ui-view></div>',
                 abstract: true
             })
@@ -62,6 +68,9 @@
             
             .state('logs', {
                 url: '/logs',
+                data: {
+                    title: 'Logs'
+                },
                 template: '<div ui-view></div>',
                 abstract: true
             })
