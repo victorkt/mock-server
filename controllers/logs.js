@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var express = require('express'),
     db = require('../initializers/database'),
@@ -70,7 +70,7 @@ router.route('/logs/:id')
  * @return {Object} The filtered object
  */
 function filter(params) {
-    return allow(params, ["mock"]);
+    return allow(params, ['mock']);
 }
 
 // ensures the unique index on name

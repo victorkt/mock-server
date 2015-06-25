@@ -2,6 +2,7 @@
 
 var express = require('express'),
     db = require('../initializers/database'),
+    Helpers = require('../initializers/helpers'),
     allow = require('../utils/parameter-filter'),
     router = express.Router();
 
@@ -26,7 +27,7 @@ router.route('/helpers')
     .post(function(req, res, next) {
         var helper = filter(req.body);
         db.helpers.insertAsync(helper).then(function(helper) {
-            // reloadHelpers();
+            Helpers.reload();
             res.json(helper);
         }).catch(next);
     });
@@ -54,7 +55,7 @@ router.route('/helpers/:id')
         var helper = filter(req.body);
         db.helpers.updateAsync({ _id: req.params.id }, helper, {}).then(function(numUpdated) {
             if(!numUpdated) return next();
-            // reloadHelpers();
+            Helpers.reload();
             res.json(helper);
         }).catch(next);
     })
@@ -67,7 +68,7 @@ router.route('/helpers/:id')
     .delete(function(req, res, next) {
         db.helpers.removeAsync({ _id: req.params.id }).then(function(numDeleted) {
             if(!numDeleted) return next();
-            // reloadHelpers();
+            Helpers.reload();
             res.status(204).end();
         }).catch(next);
     });
@@ -81,13 +82,6 @@ router.route('/helpers/:id')
  */
 function filter(params) {
     return allow(params, ['name', 'fn']);
-}
-
-/**
- * Reloads all handlebars helpers
- */
-function reloadHelpers() {
-    require('../initializers/handlebars-helpers')();
 }
 
 // ensures the unique index on name

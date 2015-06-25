@@ -1,6 +1,10 @@
-"use strict";
+'use strict';
 
-var Handlebars = require('handlebars');
+var express = require('express'),
+    db = require('../initializers/database'),
+    Helpers = require('../initializers/helpers'),
+    _ = require('lodash'),
+    router = express.Router();
 
 /**
  * Handles all mocked routes.
@@ -9,7 +13,7 @@ var Handlebars = require('handlebars');
  * @param {Object} res The response object
  * @param {Function} next The next callback function
  */
-function mockedRoute(req, res, next) {
+router.use('/:id(*)', loadMocks, function mockedRoute(req, res, next) {
     if(!req.mock) return next();
 
     var binds = {
@@ -17,7 +21,7 @@ function mockedRoute(req, res, next) {
         params: req.params,
         body: req.body
     },
-    template = Handlebars.compile(req.mock.template),
+    template = _.template(req.mock.template, { imports: Helpers.fn }),
     body = template(binds);
 
     // sets headers and sends response
@@ -28,6 +32,18 @@ function mockedRoute(req, res, next) {
         });
     }
     res.status(req.mock.status).send(body);
-}
+});
 
-module.exports = mockedRoute;
+// setup mocked routes middleware
+function loadMocks(req, res, next) {
+    db.mocks
+    .findOneAsync({ path: req.params.id, method: req.method.toUpperCase() })
+    .then(function(mock) {
+        req.mock = mock;
+        next();
+    }).catch(function(err) {
+        console.error(err.stack);
+    });
+};
+
+module.exports = router;

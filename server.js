@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var express = require('express'),
     path = require('path'),
@@ -22,6 +22,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // setup routes
 require('./initializers/routes')(app);
 app.use(logger);
+
+// setup helpers
+require('./initializers/helpers').reload();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

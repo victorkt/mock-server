@@ -10,20 +10,10 @@ module.exports = function(app) {
         mockedRoute = require('../controllers/api'),
         apiRouter = express.Router();
 
-    // setup routes
+    // setup API routes
     apiRouter.use(mocks);
     apiRouter.use(helpers);
     apiRouter.use(logs);
-
-    // setup mocked routes middleware
-    apiRouter.use('/:id(*)', function(req, res, next) {
-        db.mocks.findOneAsync({ path: req.params.id, method: req.method.toUpperCase() }).then(function(mock) {
-            req.mock = mock;
-            next();
-        }).catch(function(err) {
-            console.error(err.stack);
-        });
-    });
 
     // setup mocked routes handler
     apiRouter.use(mockedRoute);
