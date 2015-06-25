@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var DataStore = require('nedb'),
     Promise = require('bluebird');

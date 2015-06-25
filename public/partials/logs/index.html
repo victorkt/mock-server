@@ -1,45 +1,42 @@
-<div class="row form-group">
-    <div class="col-sm-12">
-        <input type="search" class="form-control" placeholder="Search" ng-model="vm.query" />
-    </div>
-</div>
+<md-card>
+  <md-data-table-toolbar>
+    <h2 class="md-title">Logs</h2>
+    <div flex></div>
+    <md-button class="md-raised" ng-disabled="!vm.selected.length"
+              confirmed-click="vm.delete()"
+              confirm-click="Are you sure you want to delete all selected logs?">Delete Selected</md-button>
+    <md-button class="md-warn md-raised" ng-disabled="!vm.items.logs.length"
+              confirmed-click="vm.purge()"
+              confirm-click="Are you sure you want to purge all logs?">Purge</md-button>
+  </md-data-table-toolbar>
 
-<table class="table table-hover table-bordered">
-    <thead>
+  <md-data-table-container>
+    <table md-data-table md-row-select="vm.selected">
+      <thead md-order="vm.query.order">
         <tr>
-            <th width="15%">Date</th>
-            <th width="25%">Mock Path</th>
-            <th width="5%">Request Method</th>
-            <th width="40%">Request URL</th>
-            <th width="5%">Response Status</th>
-            <th width="10%">Response Time</th>
+          <th width="13%" order-by="date">Date</th>
+          <th width="10%" order-by="request.method">Method</th>
+          <th width="57%" order-by="request.url">Request URL</th>
+          <th width="10%" numeric order-by="response.status">Status</th>
+          <th width="10%" numeric unit="ms" order-by="response.time">Time</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="log in vm.items.logs | filter: vm.query">
-            <td class="center">{{ log.date | date:'yyyy-MM-dd HH:mm:ss' }}</td>
-            <td class="center"><a href="#" ng-click="vm.show(log._id)">/{{ log.path }}</a></td>
-            <td class="center">{{ log.request.method }}</td>
-            <td class="center">{{ log.request.url }}</td>
-            <td class="center">{{ log.response.status }}</td>
-            <td class="center">{{ log.response.time }} ms</td>
+      </thead>
+      <tbody>
+        <tr ng-repeat="log in vm.items.logs | orderBy: vm.query.order" ng-click="vm.show(log._id, $event)">
+          <td>{{ log.date | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td><img ng-src="images/{{ log.request.method | lowercase }}-20px.svg" height="20" /></td>
+          <td>{{ log.request.url }}</td>
+          <td>{{ log.response.status }}</td>
+          <td show-unit>{{ log.response.time }}</td>
         </tr>
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  </md-data-table-container>
 
-<nav class="navbar">
-    <ul class="pagination nav navbar-nav">
-        <li><button class="btn btn-danger" confirm-click confirmed-click="vm.purge()">Purge</button></li>
-    </ul>
-    <ul class="pagination nav navbar-right">
-        <li ng-class="{disabled: vm.currentPage <= 1}">
-            <a href="#" ng-click="vm.setPage(vm.currentPage - 1)">Previous</a>
-        </li>
-        <li ng-repeat="i in vm.totalItems() track by $index">
-            <a href="#" ng-click="vm.setPage($index + 1)">{{ $index + 1 }}</a>
-        </li>
-        <li ng-class="{disabled: vm.currentPage >= vm.totalItems().length}">
-            <a href="#" ng-click="vm.setPage(vm.currentPage + 1)">Next</a>
-        </li>
-    </ul>
-</nav>
+  <md-data-table-toolbar layout-align="end">
+    <md-data-table-pagination
+          md-limit="vm.query.limit" md-page="vm.query.page" 
+          md-total="{{ vm.items.total }}" md-row-select="[10,30,50]">
+    </md-data-table-pagination>
+  </md-data-table-toolbar>
+</md-card>

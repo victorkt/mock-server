@@ -53,3 +53,11 @@ html, body {
     background-color: $red;
     padding: 10px;
 }
+
+.log-details {
+    line-height: 40px;
+}
+
+.log-details > div:nth-child(odd) {
+    background-color: $lighter-gray;
+}

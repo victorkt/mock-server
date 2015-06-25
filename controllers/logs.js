@@ -13,12 +13,12 @@ router.route('/logs')
      *  Lists all existing logs.
      */
     .get(function(req, res, next) {
-        var limit = 50;
+        var limit = req.query.limit || 30;
         var skip = (isNaN(req.query.page) || req.query.page < 1) ? 0 : (req.query.page - 1) * limit;
         var query = filter(req.query);
 
         db.logs.countAsync({}).then(function(count) {
-            db.logs.find(query).sort({date:-1}).skip(skip).limit(limit).exec(function(err, data) {
+            db.logs.find(query).sort({date:-1}).skip(skip).limit(+limit).exec(function(err, data) {
                 if(err) return next(err);
                 res.json({ logs: data, perPage: limit, total: count });
             });
@@ -49,6 +49,17 @@ router.route('/logs/:id')
         db.logs.findOneAsync({ _id: req.params.id }).then(function(logEntry) {
             if(!logEntry) return next();
             res.json(logEntry);
+        }).catch(next);
+    })
+
+    /**
+     * DELETE /logs/:id
+     *
+     *  Deletes a given log entry.
+     */
+    .delete(function(req, res, next) {
+        db.logs.removeAsync({ _id: req.params.id }).then(function() {
+            res.status(204).end();
         }).catch(next);
     });
 

@@ -2,7 +2,13 @@
 
     'use strict';
 
-    angular.module('MockServerApp', ['ui.router', 'ngResource', 'ngMessages', 'ngMaterial'])
+    angular.module('MockServerApp', [
+            'ui.router',
+            'ngResource',
+            'ngMessages',
+            'ngMaterial',
+            'md.data.table'
+        ])
         .config(function($mdThemingProvider) {
                 $mdThemingProvider
                     .theme('default')

@@ -1,0 +1,8 @@
+ <svg width="50" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+ <g id="get">
+  <path d="m0.5625,0.74915l48.81335,0l0,18.57678l-48.81335,0l0,-9.28839l0,-9.28839z" id="svg_2" stroke-width="5" fill="#607D8B"/>
+  <text fill="#ffffff" stroke-width="0" x="100.26692" y="50.94098" id="svg_1" font-size="24" font-family="RobotoDraft,Roboto,'Helvetica Neue',sans-serif" text-anchor="middle" xml:space="preserve" font-weight="normal" transform="matrix(0.5085778639039944,0,0,0.5085778639039944,-26.11837548167066,-11.570494027231284) " stroke="#000000">GET</text>
+ </g>
+</svg>

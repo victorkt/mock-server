@@ -21,6 +21,7 @@ module.exports = function(grunt) {
                         'public/components/angular-messages/angular-messages.min.js',
                         'public/components/angular-resource/angular-resource.min.js',
                         'public/components/angular-material/angular-material.min.js',
+                        'public/components/angular-material-data-table/md-data-table.min.js',
                         'public/components/angular-ui-router/release/angular-ui-router.min.js',
                         'public/javascripts/**/*.js',
                         'public/javascripts/*.js'
@@ -45,6 +46,7 @@ module.exports = function(grunt) {
                 files: {
                     'public/css/app.min.css': [
                         'public/components/angular-material/angular-material.min.css',
+                        'public/components/angular-material-data-table/dist/md-data-table.min.css',
                         'public/stylesheets/**/*.css',
                         'public/stylesheets/*.css'
                     ]

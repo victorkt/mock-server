@@ -21,7 +21,8 @@
             .state('mocks', {
                 url: '/mocks',
                 data: {
-                    title: 'Mocks'
+                    title: 'Mocks',
+                    tabIndex: 0
                 },
                 templateUrl: 'partials/mocks/mocks.html',
                 abstract: true
@@ -45,7 +46,8 @@
             .state('helpers', {
                 url: '/helpers',
                 data: {
-                    title: 'Helpers'
+                    title: 'Helpers',
+                    tabIndex: 1
                 },
                 templateUrl: 'partials/helpers/helpers.html',
                 abstract: true
@@ -69,7 +71,8 @@
             .state('logs', {
                 url: '/logs',
                 data: {
-                    title: 'Logs'
+                    title: 'Logs',
+                    tabIndex: 2
                 },
                 templateUrl: 'partials/logs/logs.html',
                 abstract: true
@@ -78,11 +81,6 @@
                     url: '',
                     templateUrl: 'partials/logs/index.html',
                     controller: 'LogsIndexController as vm'
-                })
-                .state('logs.show', {
-                    url: '/:id',
-                    templateUrl: 'partials/logs/show.html',
-                    controller: 'LogsShowController as vm'
                 });
     }
 

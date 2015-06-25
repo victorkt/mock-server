@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var morgan = require('morgan'),
     db = require('./database');

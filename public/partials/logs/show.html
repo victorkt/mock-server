@@ -1,52 +1,73 @@
-<h2>Log Details</h2>
-
-<hr/>
-
-<div style="line-height: 40px; margin-bottom: 50px">
-    <div class="row">
-        <div class="col-sm-2 right"><b>Path</b></div>
-        <div class="col-sm-10" style="padding-left: 50px">/{{ vm.log.path }}</div>
+<md-dialog aria-label="Log View" flex="70">
+  <md-toolbar class="md-accent md-hue-3">
+    <div class="md-toolbar-tools">
+      <h2>Log Details</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.cancel()">
+        <md-icon md-svg-src="images/close.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
     </div>
+  </md-toolbar>
+  <md-dialog-content>
 
-    <div class="row">
-        <div class="col-sm-2 right"><b>Date</b></div>
-        <div class="col-sm-10" style="padding-left: 50px">{{ vm.log.date | date:'yyyy-MM-dd HH:mm:ss Z' }}</div>
-    </div>
+    <div class="log-details" layout="column">
+      <div layout>
+        <div flex="25"><b>Path</b></div>
+        <div flex>/{{ vm.log.path }}</div>
+      </div>
 
-    <div class="row">
-        <div class="col-sm-2 right"><b>Request Method</b></div>
-        <div class="col-sm-10" style="padding-left: 50px">{{ vm.log.request.method }}</div>
-    </div>
+      <div layout>
+          <div flex="25"><b>Date</b></div>
+          <div flex>{{ vm.log.date | date:'yyyy-MM-dd HH:mm:ss Z' }}</div>
+      </div>
 
-    <div class="row">
-        <div class="col-sm-2 right"><b>Full URL</b></div>
-        <div class="col-sm-10" style="padding-left: 50px">{{ vm.log.request.url }}</div>
-    </div>
+      <div layout>
+          <div flex="25"><b>Request Method</b></div>
+          <div flex>{{ vm.log.request.method }}</div>
+      </div>
 
-    <div class="row">
-        <div class="col-sm-2 right"><b>Request Headers</b></div>
-        <div class="col-sm-10" style="padding-left: 50px">
-            <div class="row" ng-repeat="(name, value) in vm.log.request.headers">
-                <div class="col-sm-2 right"><b>{{ name }}</b></div>
-                <div class="col-sm-10">{{ value }}</div>
-            </div>
-        </div>
-    </div>
+      <div layout>
+          <div flex="25"><b>Full URL</b></div>
+          <div flex>{{ vm.log.request.url }}</div>
+      </div>
 
-    <div class="row">
-        <div class="col-sm-2 right"><b>Request Body</b></div>
-        <div class="col-sm-10" style="padding-left: 50px">
-            <textarea rows="5" style="max-width: 100%" class="form-control" disabled="disabled">{{ vm.log.request.body }}</textarea>
-        </div>
-    </div>
+      <div layout>
+          <div flex="25"><b>Request Headers</b></div>
+          <div flex>
+              <div layout ng-repeat="(name, value) in vm.log.request.headers">
+                  <div flex="25"><b>{{ name }}</b></div>
+                  <div class="col-sm-10">{{ value }}</div>
+              </div>
+          </div>
+      </div>
 
-    <div class="row">
-        <div class="col-sm-2 right"><b>Response Time</b></div>
-        <div class="col-sm-10" style="padding-left: 50px">{{ vm.log.response.time }} ms</div>
-    </div>
+      <div layout>
+          <div flex="25"><b>Request Body</b></div>
+          <div flex>
+            <md-input-container>
+              <textarea rows="5" style="max-width: 100%; color: #000000"
+                        disabled="disabled">{{ vm.log.request.body }}</textarea>
+            </md-input-container>
+          </div>
+      </div>
 
-    <div class="row">
-        <div class="col-sm-2 right"><b>Response Status</b></div>
-        <div class="col-sm-10" style="padding-left: 50px">{{ vm.log.response.status }}</div>
-    </div>
-</div>
+      <div layout>
+          <div flex="25"><b>Response Time</b></div>
+          <div flex>{{ vm.log.response.time }} ms</div>
+      </div>
+
+      <div layout>
+          <div flex="25"><b>Response Status</b></div>
+          <div flex>{{ vm.log.response.status }}</div>
+      </div>
+    </div> 
+
+  </md-dialog-content>
+
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="vm.hide()" class="md-primary">
+      OK
+    </md-button>
+  </div>
+</md-dialog>

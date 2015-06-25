@@ -40,4 +40,10 @@ html, body {
   background-color: #F74E48;
   padding: 10px; }
 
+.log-details {
+  line-height: 40px; }
+
+.log-details > div:nth-child(odd) {
+  background-color: #F5F5F5; }
+
 /*# sourceMappingURL=style.css.map */
