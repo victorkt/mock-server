@@ -14,9 +14,12 @@ router.route('/mocks')
      *  Lists all existing mocks.
      */
     .get(function(req, res, next) {
-        db.mocks.findAsync({})
-            .bind(res).then(res.json)
-            .catch(next);
+        db.mocks
+        .findAsync({})
+        .then(function(mocks) {
+            console.log(mocks)
+            res.json(mocks);
+        }).catch(next);
     })
 
     /**
@@ -26,7 +29,9 @@ router.route('/mocks')
      */
     .post(function(req, res, next) {
         var mock = filter(req.body);
-        db.mocks.insertAsync(mock).then(function(mock) {
+        db.mocks
+        .insertAsync(mock)
+        .then(function(mock) {
             MockedApi.loadMocks();
             res.json(mock);
         }).catch(next);

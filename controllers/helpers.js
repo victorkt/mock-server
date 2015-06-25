@@ -26,7 +26,9 @@ router.route('/helpers')
      */
     .post(function(req, res, next) {
         var helper = filter(req.body);
-        db.helpers.insertAsync(helper).then(function(helper) {
+        db.helpers
+        .insertAsync(helper)
+        .then(function(helper) {
             Helpers.reload();
             res.json(helper);
         }).catch(next);
@@ -40,7 +42,9 @@ router.route('/helpers/:id')
      *  Shows the details of a given helper.
      */
     .get(function(req, res, next) {
-        db.helpers.findOneAsync({ _id: req.params.id }).then(function(helper) {
+        db.helpers
+        .findOneAsync({ _id: req.params.id })
+        .then(function(helper) {
             if(!helper) return next();
             res.json(helper);
         }).catch(next);
@@ -53,7 +57,9 @@ router.route('/helpers/:id')
      */
     .patch(function(req, res, next) {
         var helper = filter(req.body);
-        db.helpers.updateAsync({ _id: req.params.id }, helper, {}).then(function(numUpdated) {
+        db.helpers
+        .updateAsync({ _id: req.params.id }, helper, {})
+        .then(function(numUpdated) {
             if(!numUpdated) return next();
             Helpers.reload();
             res.json(helper);
@@ -66,7 +72,9 @@ router.route('/helpers/:id')
      *  Deletes a given helper.
      */
     .delete(function(req, res, next) {
-        db.helpers.removeAsync({ _id: req.params.id }).then(function(numDeleted) {
+        db.helpers
+        .removeAsync({ _id: req.params.id })
+        .then(function(numDeleted) {
             if(!numDeleted) return next();
             Helpers.reload();
             res.status(204).end();

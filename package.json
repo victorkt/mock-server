@@ -26,6 +26,7 @@
     "consolidate": "^0.13.1",
     "express": "^4.13.0",
     "lodash": "^3.9.3",
+    "mongodb": "^2.0.35",
     "nedb": "^1.1.2"
   },
   "devDependencies": {
