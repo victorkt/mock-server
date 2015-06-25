@@ -26,7 +26,6 @@
     "consolidate": "^0.13.1",
     "express": "^4.13.0",
     "lodash": "^3.9.3",
-    "morgan": "^1.6.0",
     "nedb": "^1.1.2"
   },
   "devDependencies": {

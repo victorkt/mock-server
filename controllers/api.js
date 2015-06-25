@@ -3,6 +3,7 @@
 var express = require('express'),
     db = require('../initializers/database'),
     Helpers = require('../initializers/helpers'),
+    logger = require('../initializers/logger'),
     _ = require('lodash'),
     router = express.Router();
 
@@ -13,7 +14,7 @@ var express = require('express'),
  * @param {Object} res The response object
  * @param {Function} next The next callback function
  */
-router.use('/:id(*)', loadMocks, function mockedRoute(req, res, next) {
+router.use('/:id(*)', loadMocks, logger, function mockedRoute(req, res, next) {
     if(!req.mock) return next();
 
     var binds = {

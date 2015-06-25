@@ -1,43 +1,32 @@
 'use strict';
 
-var morgan = require('morgan'),
-    db = require('./database');
+var db = require('./database');
 
-// options object for morgan
-var opts = {
-    stream: {
-        write: function(msg) {
-            var log = JSON.parse(msg);
-            if(log.mock !== '-') db.logs.insert(log);
-        }
-    }
-};
+function requestLogger(req, res, next) {
+    if(!req.mock) return next();
+    var start = Date.now(),
+    log = {
+        mock: req.mock._id,
+        path: req.mock.path,
+        date: (new Date()).toISOString(),
+        request: {
+            method: req.method,
+            url: req.originalUrl,
+            headers: req.headers,
+            body: req.body
+        },
+        response: {}
+    };
 
-// create token :id
-morgan.token('id', function getId(req) {
-    if(req.mock) return req.mock._id;
-    return null;
-});
+    res.on('finish', function responseSent() {
+      log.response.time = Date.now() - start;
+      log.response.status = res.statusCode;
+      log.response.headers = res._headers;
 
-// create token :mockpath
-morgan.token('mockpath', function getMockPath(req) {
-    if(req.mock) return req.mock.path;
-    return null;
-});
+      db.logs.insert(log);
+    });
 
-// create token :reqheaders
-morgan.token('reqheaders', function getReqHeaders(req) {
-    return JSON.stringify(req.headers);
-});
+    next();
+}
 
-// create token :reqbody
-morgan.token('reqbody', function getReqBody(req) {
-    return JSON.stringify(req.body)
-            .replace(/\\"/g, '"')
-            .replace(/"/g, '\\"');
-});
-
-// set log format for morgan
-var format = '{ "mock": ":id", "path": ":mockpath", "date": ":date[iso]", "request": { "method": ":method", "url": ":url", "headers": :reqheaders, "body": ":reqbody" }, "response": { "time": :response-time, "status": :status } }';
-
-module.exports = morgan(format, opts);
+module.exports = requestLogger;
