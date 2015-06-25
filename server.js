@@ -4,7 +4,6 @@ var express = require('express'),
     path = require('path'),
     bodyParser = require('body-parser'),
     db = require('./initializers/database'),
-    logger = require('./initializers/logger'),
     cons = require('consolidate'),
     app = express();
 
@@ -21,7 +20,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // setup routes
 require('./initializers/routes')(app);
-app.use(logger);
 
 // setup helpers
 require('./initializers/helpers').reload();

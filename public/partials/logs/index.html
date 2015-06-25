@@ -24,7 +24,7 @@
       <tbody>
         <tr ng-repeat="log in vm.items.logs | orderBy: vm.query.order" ng-click="vm.show(log._id, $event)">
           <td>{{ log.date | date:'yyyy-MM-dd HH:mm:ss' }}</td>
-          <td><img ng-src="images/{{ log.request.method | lowercase }}-20px.svg" height="20" /></td>
+          <td><img ng-src="images/{{ log.request.method | lowercase }}-20px.svg" style="height: 20px; width: 50px" /></td>
           <td>{{ log.request.url }}</td>
           <td>{{ log.response.status }}</td>
           <td show-unit>{{ log.response.time }}</td>

@@ -3,6 +3,7 @@
 var express = require('express'),
     db = require('../initializers/database'),
     allow = require('../utils/parameter-filter'),
+    MockedApi = require('../controllers/mocked-api'),
     router = express.Router();
 
 router.route('/mocks')
@@ -25,9 +26,10 @@ router.route('/mocks')
      */
     .post(function(req, res, next) {
         var mock = filter(req.body);
-        db.mocks.insertAsync(mock)
-            .bind(res).then(res.json)
-            .catch(next);
+        db.mocks.insertAsync(mock).then(function(mock) {
+            MockedApi.loadMocks();
+            res.json(mock);
+        }).catch(next);
     });
 
 router.route('/mocks/:id')
@@ -38,7 +40,9 @@ router.route('/mocks/:id')
      *  Shows the details of a given mock.
      */
     .get(function(req, res, next) {
-        db.mocks.findOneAsync({ _id: req.params.id }).then(function(mock) {
+        db.mocks
+        .findOneAsync({ _id: req.params.id })
+        .then(function(mock) {
             if(!mock) return next();
             res.json(mock);
         }).catch(next);
@@ -51,8 +55,11 @@ router.route('/mocks/:id')
      */
     .patch(function(req, res, next) {
         var mock = filter(req.body);
-        db.mocks.updateAsync({ _id: req.params.id }, mock, {}).then(function(numUpdated) {
+        db.mocks
+        .updateAsync({ _id: req.params.id }, mock, {})
+        .then(function(numUpdated) {
             if(!numUpdated) return next();
+            MockedApi.loadMocks();
             res.json(mock);
         }).catch(next);
     })
@@ -63,8 +70,11 @@ router.route('/mocks/:id')
      *  Deletes a given mock.
      */
     .delete(function(req, res, next) {
-        db.mocks.removeAsync({ _id: req.params.id }).then(function(numDeleted) {
+        db.mocks
+        .removeAsync({ _id: req.params.id })
+        .then(function(numDeleted) {
             if(!numDeleted) return next();
+            MockedApi.loadMocks();
             res.status(204).end();
         }).catch(next);
     });

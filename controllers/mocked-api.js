@@ -7,6 +7,26 @@ var express = require('express'),
     _ = require('lodash'),
     router = express.Router();
 
+var MockedApi = {
+    // the mocked api router
+    router: router,
+
+    /**
+     * Loads (or reloads) all mocked routes.
+     *
+     * @return {Object} a promise
+     */
+    loadMocks: function loadMocks() {
+        router.stack = [];
+        return db.mocks.findAsync({})
+        .then(function(mocks) {
+            mocks.forEach(setupMock);
+        }).catch(function(err) {
+            console.error(err.stack);
+        });
+    }
+};
+
 /**
  * Handles all mocked routes.
  *
@@ -14,7 +34,7 @@ var express = require('express'),
  * @param {Object} res The response object
  * @param {Function} next The next callback function
  */
-router.use('/:id(*)', loadMocks, logger, function mockedRoute(req, res, next) {
+function mockedRoute(req, res, next) {
     if(!req.mock) return next();
 
     var binds = {
@@ -32,19 +52,34 @@ router.use('/:id(*)', loadMocks, logger, function mockedRoute(req, res, next) {
             res.set(h[0].trim(), h[1].trim());
         });
     }
-    res.status(req.mock.status).send(body);
-});
 
-// setup mocked routes middleware
-function loadMocks(req, res, next) {
-    db.mocks
-    .findOneAsync({ path: req.params.id, method: req.method.toUpperCase() })
-    .then(function(mock) {
+    res.status(req.mock.status).send(body);
+}
+
+/**
+ * Setup the express route for a Mock.
+ *
+ * @param {Object} mock The mock object
+ */
+function setupMock(mock) {
+    var method = mock.method.toLowerCase(),
+        path = '/' + mock.path;
+
+    router[method](path, injectMock(mock), logger, mockedRoute);
+}
+
+/**
+ * Middleware to inject the Mock into the Request
+ * object.
+ *
+ * @param {Object} mock The mock object
+ * @return {Function} a middleware function
+ */
+function injectMock(mock) {
+    return function(req, res, next) {
         req.mock = mock;
         next();
-    }).catch(function(err) {
-        console.error(err.stack);
-    });
-};
+    };
+}
 
-module.exports = router;
+module.exports = MockedApi;

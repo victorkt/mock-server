@@ -19,7 +19,7 @@
             vm.mocks = Mock.query();
         };
         vm.openMock = function(mock) {
-            $window.open('api/' + mock.path, '_blank');
+            $window.open('m/' + mock.path, '_blank');
         };
 
         vm.loadMocks();
