@@ -11,7 +11,7 @@
         var vm = this;
         vm.selected = [];
         vm.query = {
-            order: '-date',
+            sort: '-date',
             limit: 10,
             page: 1
         };

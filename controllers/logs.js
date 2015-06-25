@@ -15,12 +15,23 @@ router.route('/logs')
     .get(function(req, res, next) {
         var limit = req.query.limit || 30;
         var skip = (isNaN(req.query.page) || req.query.page < 1) ? 0 : (req.query.page - 1) * limit;
+        var sort = parseSort(req.query.sort || '-date');
         var query = filter(req.query);
 
         db.logs.countAsync({}).then(function(count) {
-            db.logs.find(query).sort({date:-1}).skip(skip).limit(+limit).exec(function(err, data) {
+            db.logs
+            .find(query)
+            .sort(sort)
+            .skip(+skip)
+            .limit(+limit)
+            .exec(function(err, data) {
                 if(err) return next(err);
-                res.json({ logs: data, perPage: limit, total: count });
+                res.json({
+                    logs: data,
+                    perPage: limit,
+                    total: count,
+                    sort: sort
+                });
             });
         });
     })
@@ -71,6 +82,34 @@ router.route('/logs/:id')
  */
 function filter(params) {
     return allow(params, ['mock']);
+}
+
+/**
+ * Parses a sort string, returning an equivalent object
+ *
+ * Examples:
+ *   'date' => { date: 1 }
+ *   '-date' => { date: -1 }
+ *   'method,-request.method' => { method: 1, 'request.method': 1 }
+ *
+ * @param {String} sortStr The sort string
+ * @return {Object} The parsed sort object
+ */
+function parseSort(sortStr) {
+    if(typeof sortStr !== 'string') {
+        return sort;
+    }
+
+    var sort = {};
+
+    sortStr.split(',').forEach(function(field) {
+        var direction = field.charAt(0) === '-' ? -1 : 1;
+        field = (direction === -1) ? field.slice(1) : field;
+
+        sort[field] = direction;
+    });
+
+    return sort;
 }
 
 // ensures the unique index on name
