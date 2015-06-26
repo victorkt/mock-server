@@ -3,12 +3,20 @@
     'use strict';
 
     angular.module('MockServerApp')
-        .controller('TopToolbarController', ['$state', TopToolbarController]);
+        .controller('TopToolbarController', ['$scope', '$state', TopToolbarController]);
 
 
-    function TopToolbarController($state) {
+    function TopToolbarController($scope, $state) {
         var ttc = this;
         ttc.state = $state;
+
+        $scope.$watchCollection('ttc.state.current', function (newValue, oldValue) {
+            if(newValue === oldValue) return;
+            if(typeof newValue.data === 'object') {
+                ttc.title = newValue.data.title;
+                ttc.tabIndex = newValue.data.tabIndex;
+            }
+        });
     }
 
 })();
