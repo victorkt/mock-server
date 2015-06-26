@@ -3,7 +3,9 @@
 var express = require('express'),
     db = require('../initializers/database'),
     allow = require('../utils/parameter-filter'),
+    NotFound = require('../utils/errors').NotFound,
     MockedApi = require('../controllers/mocked-api'),
+    ObjectId = db.ObjectId,
     router = express.Router();
 
 router.route('/mocks')
@@ -15,11 +17,11 @@ router.route('/mocks')
      */
     .get(function(req, res, next) {
         db.mocks
-        .findAsync({})
-        .then(function(mocks) {
-            console.log(mocks)
-            res.json(mocks);
-        }).catch(next);
+        .find({})
+        .toArrayAsync()
+        .bind(res)
+        .then(res.json)
+        .catch(next);
     })
 
     /**
@@ -34,7 +36,8 @@ router.route('/mocks')
         .then(function(mock) {
             MockedApi.loadMocks();
             res.json(mock);
-        }).catch(next);
+        })
+        .catch(next);
     });
 
 router.route('/mocks/:id')
@@ -46,11 +49,14 @@ router.route('/mocks/:id')
      */
     .get(function(req, res, next) {
         db.mocks
-        .findOneAsync({ _id: req.params.id })
+        .findOneAsync({ _id: ObjectId(req.params.id) })
         .then(function(mock) {
-            if(!mock) return next();
+            if(!mock) {
+                return next(new NotFound(req.params.id));
+            }
             res.json(mock);
-        }).catch(next);
+        })
+        .catch(next);
     })
 
     /**
@@ -61,12 +67,15 @@ router.route('/mocks/:id')
     .patch(function(req, res, next) {
         var mock = filter(req.body);
         db.mocks
-        .updateAsync({ _id: req.params.id }, mock, {})
-        .then(function(numUpdated) {
-            if(!numUpdated) return next();
+        .updateOneAsync({ _id: ObjectId(req.params.id) }, { $set: mock })
+        .then(function(r) {
+            if(!r.result.n) {
+                return next(new NotFound(req.params.id));
+            }
             MockedApi.loadMocks();
             res.json(mock);
-        }).catch(next);
+        })
+        .catch(next);
     })
 
     /**
@@ -76,12 +85,15 @@ router.route('/mocks/:id')
      */
     .delete(function(req, res, next) {
         db.mocks
-        .removeAsync({ _id: req.params.id })
-        .then(function(numDeleted) {
-            if(!numDeleted) return next();
+        .removeAsync({ _id: ObjectId(req.params.id) })
+        .then(function(r) {
+            if(!r.result.n) {
+                return next(new NotFound(req.params.id));
+            }
             MockedApi.loadMocks();
             res.status(204).end();
-        }).catch(next);
+        })
+        .catch(next);
     });
 
 
@@ -95,7 +107,7 @@ function filter(params) {
     return allow(params, ['path', 'method', 'status', 'headers', 'template']);
 }
 
-// ensures the unique index on path
-db.mocks.ensureIndex({ fieldName: 'path', unique: true });
+// ensures the indexes
+db.mocks.ensureIndexAsync({ path: 1, method: 1 }, { unique: true });
 
 module.exports = router;

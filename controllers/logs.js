@@ -3,6 +3,8 @@
 var express = require('express'),
     db = require('../initializers/database'),
     allow = require('../utils/parameter-filter'),
+    NotFound = require('../utils/errors').NotFound,
+    ObjectId = db.ObjectId,
     router = express.Router();
 
 router.route('/logs')
@@ -24,15 +26,16 @@ router.route('/logs')
             .sort(sort)
             .skip(+skip)
             .limit(+limit)
-            .exec(function(err, data) {
-                if(err) return next(err);
+            .toArrayAsync()
+            .then(function(data) {
                 res.json({
                     logs: data,
                     perPage: limit,
                     total: count,
                     sort: sort
                 });
-            });
+            })
+            .catch(next);
         });
     })
 
@@ -44,9 +47,12 @@ router.route('/logs')
     .delete(function(req, res, next) {
         var query = filter(req.query);
 
-        db.logs.removeAsync(query, { multi: true }).then(function() {
+        db.logs
+        .removeAsync(query, { multi: true })
+        .then(function() {
             res.status(204).end();
-        }).catch(next);
+        })
+        .catch(next);
     });
 
 router.route('/logs/:id')
@@ -57,10 +63,15 @@ router.route('/logs/:id')
      *  Shows the details of a given log entry.
      */
     .get(function(req, res, next) {
-        db.logs.findOneAsync({ _id: req.params.id }).then(function(logEntry) {
-            if(!logEntry) return next();
+        db.logs
+        .findOneAsync({ _id: ObjectId(req.params.id) })
+        .then(function(logEntry) {
+            if(!logEntry) {
+                return next(new NotFound(req.params.id));
+            }
             res.json(logEntry);
-        }).catch(next);
+        })
+        .catch(next);
     })
 
     /**
@@ -69,9 +80,12 @@ router.route('/logs/:id')
      *  Deletes a given log entry.
      */
     .delete(function(req, res, next) {
-        db.logs.removeAsync({ _id: req.params.id }).then(function() {
+        db.logs
+        .removeAsync({ _id: ObjectId(req.params.id) })
+        .then(function() {
             res.status(204).end();
-        }).catch(next);
+        })
+        .catch(next);
     });
 
 /**
@@ -112,7 +126,10 @@ function parseSort(sortStr) {
     return sort;
 }
 
-// ensures the unique index on name
-db.logs.ensureIndex({ fieldName: 'mock' });
+// ensures the indexes
+db.logs.ensureIndexAsync({ mock: 1 });
+db.logs.ensureIndexAsync({ date: -1 });
+db.logs.ensureIndexAsync({ path: 1 });
+db.logs.ensureIndexAsync({ 'request.method': 1 });
 
 module.exports = router;

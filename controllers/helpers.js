@@ -4,6 +4,8 @@ var express = require('express'),
     db = require('../initializers/database'),
     Helpers = require('../initializers/helpers'),
     allow = require('../utils/parameter-filter'),
+    NotFound = require('../utils/errors').NotFound,
+    ObjectId = db.ObjectId,
     router = express.Router();
 
 router.route('/helpers')
@@ -14,9 +16,12 @@ router.route('/helpers')
      *  Lists all existing helpers.
      */
     .get(function(req, res, next) {
-        db.helpers.findAsync({})
-            .bind(res).then(res.json)
-            .catch(next);
+        db.helpers
+        .find({})
+        .toArrayAsync()
+        .bind(res)
+        .then(res.json)
+        .catch(next);
     })
 
     /**
@@ -31,7 +36,8 @@ router.route('/helpers')
         .then(function(helper) {
             Helpers.reload();
             res.json(helper);
-        }).catch(next);
+        })
+        .catch(next);
     });
 
 router.route('/helpers/:id')
@@ -43,11 +49,14 @@ router.route('/helpers/:id')
      */
     .get(function(req, res, next) {
         db.helpers
-        .findOneAsync({ _id: req.params.id })
+        .findOneAsync({ _id: ObjectId(req.params.id) })
         .then(function(helper) {
-            if(!helper) return next();
+            if(!helper) {
+                return next(new NotFound(req.params.id));
+            }
             res.json(helper);
-        }).catch(next);
+        })
+        .catch(next);
     })
 
     /**
@@ -58,12 +67,15 @@ router.route('/helpers/:id')
     .patch(function(req, res, next) {
         var helper = filter(req.body);
         db.helpers
-        .updateAsync({ _id: req.params.id }, helper, {})
-        .then(function(numUpdated) {
-            if(!numUpdated) return next();
+        .updateAsync({ _id: ObjectId(req.params.id) }, { $set: helper })
+        .then(function(r) {
+            if(!r.result.n) {
+                return next(new NotFound(req.params.id));
+            }
             Helpers.reload();
             res.json(helper);
-        }).catch(next);
+        })
+        .catch(next);
     })
 
     /**
@@ -73,9 +85,11 @@ router.route('/helpers/:id')
      */
     .delete(function(req, res, next) {
         db.helpers
-        .removeAsync({ _id: req.params.id })
-        .then(function(numDeleted) {
-            if(!numDeleted) return next();
+        .removeAsync({ _id: ObjectId(req.params.id) })
+        .then(function(r) {
+            if(!r.result.n) {
+                return next(new NotFound(req.params.id));
+            }
             Helpers.reload();
             res.status(204).end();
         }).catch(next);
@@ -92,7 +106,7 @@ function filter(params) {
     return allow(params, ['name', 'fn']);
 }
 
-// ensures the unique index on name
-db.helpers.ensureIndex({ fieldName: 'name', unique: true });
+// ensures the indexes
+db.helpers.ensureIndexAsync({ name: 1 }, { unique: true });
 
 module.exports = router;
