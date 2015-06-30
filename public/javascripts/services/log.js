@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('MockServerApp')
-        .factory('Log', Log);
+        .factory('Log', ['$resource', Log]);
 
 
     function Log($resource) {

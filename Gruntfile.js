@@ -21,7 +21,7 @@ module.exports = function(grunt) {
                         'public/components/angular-messages/angular-messages.min.js',
                         'public/components/angular-resource/angular-resource.min.js',
                         'public/components/angular-material/angular-material.min.js',
-                        'public/components/angular-material-data-table/md-data-table.min.js',
+                        'public/components/angular-material-data-table/dist/md-data-table.min.js',
                         'public/components/angular-ui-router/release/angular-ui-router.min.js',
                         'public/javascripts/**/*.js',
                         'public/javascripts/*.js'
@@ -158,7 +158,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-karma');
     // grunt.loadNpmTasks('grunt-protractor-runner');
     
-    grunt.registerTask('build', ['sass', 'cssmin', 'jshint', 'uglify', 'includeSource']);
+    grunt.registerTask('build', ['jshint', 'uglify', 'sass', 'cssmin', 'includeSource']);
     grunt.registerTask('dev', ['sass', 'jshint', 'includeSource', 'concurrent']);
 
 };

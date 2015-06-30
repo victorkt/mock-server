@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('MockServerApp')
-        .factory('Helper', Helper);
+        .factory('Helper', ['$resource', Helper]);
 
 
     function Helper($resource) {

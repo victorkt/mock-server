@@ -4,6 +4,7 @@
   "description": "A simple mock server with dynamic routes and templated responses.",
   "main": "app.js",
   "scripts": {
+    "run": "node server",
     "test": "NODE_ENV=test; ./node_modules/mocha/bin/mocha --timeout 5000 test/server --recursive"
   },
   "repository": {
