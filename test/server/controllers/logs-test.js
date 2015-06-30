@@ -168,6 +168,73 @@ describe('Logs Controller', function() {
 
         });
 
+        describe('pagination & ordering', function() {
+
+            it('limits the amount of results', function(done) {
+                request(app)
+                .get('/api/logs?limit=1')
+                .set('Accept', 'application/json')
+                .end(function(err, res) {
+                    res.body.logs.length.should.equal(1);
+                    res.body.perPage.should.equal(1);
+                    done(err);
+                });
+            });
+
+            it('paginates the results', function(done) {
+                request(app)
+                .get('/api/logs?limit=1')
+                .set('Accept', 'application/json')
+                .end(function(err, res) {
+                    request(app)
+                    .get('/api/logs?limit=1&page=2')
+                    .set('Accept', 'application/json')
+                    .end(function(err1, res1) {
+                        var logFirstPage = res.body.logs[0],
+                            logSecondPage = res1.body.logs[0];
+
+                        logFirstPage._id.should.not.equal(logSecondPage._id);
+                        done();
+                    });
+                });
+            });
+
+            it('sorts the results in ascending order', function(done) {
+                request(app)
+                .get('/api/logs?sort=_id')
+                .set('Accept', 'application/json')
+                .end(function(err, res) {
+                    var ids = res.body.logs.map(function(log) {
+                        return log._id;
+                    }).sort();
+
+                    res.body.logs.forEach(function(log, idx) {
+                        log._id.should.equal(ids[idx]);
+                    });
+                    
+                    done(err);
+                });
+            });
+
+            it('sorts the results in descending order', function(done) {
+                request(app)
+                .get('/api/logs?sort=-_id')
+                .set('Accept', 'application/json')
+                .end(function(err, res) {
+                    var ids = res.body.logs.map(function(log) {
+                        return log._id;
+                    }).sort().reverse();
+
+                    res.body.logs.forEach(function(log, idx) {
+                        log._id.should.equal(ids[idx]);
+                    });
+
+                    done(err);
+                });
+            });
+
+        });
+
     });
 
     describe('GET /logs/:id', function() {

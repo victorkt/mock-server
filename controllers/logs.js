@@ -20,7 +20,9 @@ router.route('/logs')
         var sort = parseSort(req.query.sort || '-date');
         var query = filter(req.query);
 
-        db.logs.countAsync({}).then(function(count) {
+        db.logs
+        .countAsync({})
+        .then(function(count) {
             db.logs
             .find(query)
             .sort(sort)
@@ -30,8 +32,8 @@ router.route('/logs')
             .then(function(data) {
                 res.json({
                     logs: data,
-                    perPage: limit,
-                    total: count,
+                    perPage: +limit,
+                    total: +count,
                     sort: sort
                 });
             })
