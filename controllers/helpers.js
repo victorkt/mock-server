@@ -19,8 +19,7 @@ router.route('/helpers')
         db.helpers
         .find({})
         .toArrayAsync()
-        .bind(res)
-        .then(res.json)
+        .then(res.json.bind(res))
         .catch(next);
     })
 
@@ -33,11 +32,16 @@ router.route('/helpers')
         var helper = filter(req.body);
         db.helpers
         .insertAsync(helper)
-        .then(function(helper) {
+        .then(function(result) {
             Helpers.reload();
-            res.json(helper);
+            res.status(201).json(helper);
         })
-        .catch(next);
+        .catch(function(err) {
+            if(err.code === 11000) {
+                err.status = 400;
+            }
+            next(err);
+        });
     });
 
 router.route('/helpers/:id')
@@ -67,13 +71,13 @@ router.route('/helpers/:id')
     .patch(function(req, res, next) {
         var helper = filter(req.body);
         db.helpers
-        .updateAsync({ _id: ObjectId(req.params.id) }, { $set: helper })
+        .updateOneAsync({ _id: ObjectId(req.params.id) }, { $set: helper })
         .then(function(r) {
             if(!r.result.n) {
                 return next(new NotFound(req.params.id));
             }
             Helpers.reload();
-            res.json(helper);
+            res.status(202).json(helper);
         })
         .catch(next);
     })
@@ -92,7 +96,8 @@ router.route('/helpers/:id')
             }
             Helpers.reload();
             res.status(204).end();
-        }).catch(next);
+        })
+        .catch(next);
     });
 
 

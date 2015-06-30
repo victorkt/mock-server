@@ -18,7 +18,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // connects to database
-require('./initializers/database').connect().then(function() {
+require('./initializers/database')
+.connect()
+.then(function() {
     // setup routes
     require('./initializers/routes')(app);
 
@@ -42,5 +44,14 @@ require('./initializers/database').connect().then(function() {
         });
     });
 
-    app.listen(process.env.MOCK_PORT || 3000);
+    if(app.get('env') !== 'test') {
+        app.listen(process.env.MOCK_PORT || 3000);
+    }
+})
+.catch(function(err) {
+    console.log(err.message);
+    console.log(err.stack);
+    process.exit(1);
 });
+
+module.exports = app;

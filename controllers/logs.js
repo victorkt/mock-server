@@ -82,7 +82,10 @@ router.route('/logs/:id')
     .delete(function(req, res, next) {
         db.logs
         .removeAsync({ _id: ObjectId(req.params.id) })
-        .then(function() {
+        .then(function(r) {
+            if(!r.result.n) {
+                return next(new NotFound(req.params.id));
+            }
             res.status(204).end();
         })
         .catch(next);

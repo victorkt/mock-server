@@ -19,8 +19,7 @@ router.route('/mocks')
         db.mocks
         .find({})
         .toArrayAsync()
-        .bind(res)
-        .then(res.json)
+        .then(res.json.bind(res))
         .catch(next);
     })
 
@@ -33,11 +32,16 @@ router.route('/mocks')
         var mock = filter(req.body);
         db.mocks
         .insertAsync(mock)
-        .then(function(mock) {
+        .then(function(result) {
             MockedApi.loadMocks();
-            res.json(mock);
+            res.status(201).json(mock);
         })
-        .catch(next);
+        .catch(function(err) {
+            if(err.code === 11000) {
+                err.status = 400;
+            }
+            next(err);
+        });
     });
 
 router.route('/mocks/:id')
@@ -73,7 +77,7 @@ router.route('/mocks/:id')
                 return next(new NotFound(req.params.id));
             }
             MockedApi.loadMocks();
-            res.json(mock);
+            res.status(202).json(mock);
         })
         .catch(next);
     })

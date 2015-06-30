@@ -4,7 +4,7 @@
   "description": "A simple mock server with dynamic routes and templated responses.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test; ./node_modules/mocha/bin/mocha --timeout 5000 test/server --recursive"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,9 @@
     "grunt-include-source": "^0.6.0",
     "grunt-karma": "^0.11.1",
     "grunt-nodemon": "^0.4.0",
-    "karma": "^0.12.36"
+    "karma": "^0.12.36",
+    "mocha": "^2.2.5",
+    "should": "^7.0.1",
+    "supertest": "^1.0.1"
   }
 }
