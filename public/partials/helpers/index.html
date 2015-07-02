@@ -1,25 +1,18 @@
 <!-- NEW HELPER -->
 <div class="fab-new" flex layout layout-align="end start">
-  <md-button class="md-fab md-hue-2" aria-label="New Helper" ui-sref="helpers.index.new">
+  <md-button class="md-fab md-hue-2" aria-label="New Helper" ui-sref="helpers.new">
     <md-icon md-svg-src="images/add.svg"></md-icon>
     <md-tooltip>New Helper</md-tooltip>
   </md-button>
 </div>
 
-<div layout layout-fill>
-  <!-- HELPERS LIST -->
-  <md-content layout-fill flex="30" id="item-list">
-    <md-subheader class="md-primary" style="margin-top:5px">Helpers</md-subheader>
-    <md-list>
-      <md-list-item ng-repeat="helper in vm.helpers" ng-click="vm.editHelper(helper)"
-                    ng-class="{ 'active-pane': helper === vm.selectedHelper }">
-        <img alt="Code" src="images/code.svg" class="md-avatar" />
-        <p>{{ helper.name }}</p>
-      </md-list-item>
-    </md-list>
-  </md-content>
-
-  <!-- HELPER FORM -->
-  <md-content flex style="padding: 10px" ui-view>
-  </md-content>
-</div>
+<!-- HELPERS LIST -->
+<md-content class="main-container">
+  <md-subheader class="md-primary" style="margin-top:5px">Helpers</md-subheader>
+  <md-list>
+    <md-list-item ng-repeat="helper in vm.helpers" ng-click="vm.editHelper(helper)">
+      <img alt="Code" src="images/code.svg" class="md-avatar" />
+      <p>{{ helper.name }}</p>
+    </md-list-item>
+  </md-list>
+</md-content>

@@ -18,6 +18,7 @@ router.route('/mocks')
     .get(function(req, res, next) {
         db.mocks
         .find({})
+        .sort({ path: 1 })
         .toArrayAsync()
         .then(res.json.bind(res))
         .catch(next);

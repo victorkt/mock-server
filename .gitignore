@@ -1,10 +1,6 @@
 public/components/
 public/stylesheets/*.css
 public/stylesheets/*.map
-public/css/
-public/js/
-public/app.html
 node_modules/
-db/*.db
 .DS_Store
 .sass-cache/

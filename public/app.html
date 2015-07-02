@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+  * Mock Server *
+
+  A simple mock server that responds to dynamic routes with templated responses.
+
+  Author: Victor Kohl Tavares
+-->
+<html ng-app="MockServerApp">
+<head>
+  <title>Mock Server</title>
+  <base href="/">
+
+  <% if(process.env.NODE_ENV === 'production') { %>
+  <link rel="stylesheet" href="css/app.min.css">
+  <% } else { %>
+  <!-- COMPONENTS -->
+  <link rel="stylesheet" type="text/css" href="components/angular-material/angular-material.css">
+  <link rel="stylesheet" type="text/css" href="components/angular-material-data-table/dist/md-data-table.css">
+
+  <!-- APP -->
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  <% } %>
+</head>
+<body>
+
+  <div id="main-view" layout="column">
+    <div ng-include="'partials/_nav.html'"></div>
+    <div id="main-content" layout layout-align="center start" ui-view></div>
+  </div>
+
+  <% if(process.env.NODE_ENV === 'production') { %>
+  <script type="text/javascript" src="js/app.min.js"></script>
+  <% } else { %>
+  <!-- COMPONENTS -->
+  <script type="text/javascript" src="components/angular/angular.js"></script>
+  <script type="text/javascript" src="components/angular-resource/angular-resource.js"></script>
+  <script type="text/javascript" src="components/angular-messages/angular-messages.js"></script>
+  <script type="text/javascript" src="components/angular-animate/angular-animate.js"></script>
+  <script type="text/javascript" src="components/angular-aria/angular-aria.js"></script>
+  <script type="text/javascript" src="components/angular-material/angular-material.js"></script>
+  <script type="text/javascript" src="components/angular-material-data-table/dist/md-data-table.js"></script>
+  <script type="text/javascript" src="components/angular-ui-router/release/angular-ui-router.js"></script>
+
+  <!-- APP -->
+  <script type="text/javascript" src="javascripts/app.js"></script>
+  <script type="text/javascript" src="javascripts/controllers/helpers-controller.js"></script>
+  <script type="text/javascript" src="javascripts/controllers/logs-controller.js"></script>
+  <script type="text/javascript" src="javascripts/controllers/mocks-controller.js"></script>
+  <script type="text/javascript" src="javascripts/controllers/top-toolbar-controller.js"></script>
+  <script type="text/javascript" src="javascripts/directives/confirm-click.js"></script>
+  <script type="text/javascript" src="javascripts/directives/server-message.js"></script>
+  <script type="text/javascript" src="javascripts/routes.js"></script>
+  <script type="text/javascript" src="javascripts/services/helper.js"></script>
+  <script type="text/javascript" src="javascripts/services/log.js"></script>
+  <script type="text/javascript" src="javascripts/services/mock.js"></script>
+  <% } %>
+</body>
+</html>

@@ -18,12 +18,8 @@ html, body {
     padding: 0;
 }
 
-#item-list {
-    border-right: 1px $darker-grey solid;
-    background-color: $light-gray;
-}
-#item-list .md-subheader {
-    background-color: $light-gray;
+.main-container {
+    border: solid 1px $dark-grey;
 }
 
 .form-card {

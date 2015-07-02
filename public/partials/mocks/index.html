@@ -1,27 +1,20 @@
 <!-- NEW MOCK -->
 <div class="fab-new" flex layout layout-align="end start">
-  <md-button class="md-fab md-hue-2" aria-label="New Mock" ui-sref="mocks.index.new">
+  <md-button class="md-fab md-hue-2" aria-label="New Mock" ui-sref="mocks.new">
     <md-icon md-svg-src="images/add.svg"></md-icon>
     <md-tooltip>New Mock</md-tooltip>
   </md-button>
 </div>
 
-<div layout layout-fill>
-  <!-- MOCKS LIST -->
-  <md-content layout-fill flex="30" id="item-list">
-    <md-subheader class="md-primary" style="margin-top:5px">Mocks</md-subheader>
-    <md-list>
-      <md-list-item ng-repeat="mock in vm.mocks" ng-click="vm.editMock(mock)"
-                    ng-class="{ 'active-pane': mock === vm.selectedMock }">
-        <img alt="{{ mock.method }}" ng-src="images/{{ mock.method | lowercase }}.svg" class="md-avatar" />
-        <p>{{ mock.path }}</p>
-        <md-icon md-svg-icon="images/link.svg" class="md-secondary" 
-                  ng-click="vm.openMock(mock)" aria-label="Go to mock"></md-icon>
-      </md-list-item>
-    </md-list>
-  </md-content>
-
-  <!-- MOCK FORM -->
-  <md-content flex style="padding: 10px" ui-view>
-  </md-content>
-</div>
+<!-- MOCKS LIST -->
+<md-content class="main-container">
+  <md-subheader class="md-primary" style="margin-top:5px">Mocks</md-subheader>
+  <md-list>
+    <md-list-item ng-repeat="mock in vm.mocks" ng-click="vm.editMock(mock)">
+      <img alt="{{ mock.method }}" ng-src="images/{{ mock.method | lowercase }}.svg" class="md-avatar" />
+      <p>{{ mock.path }}</p>
+      <md-icon md-svg-icon="images/link.svg" class="md-secondary" 
+                ng-click="vm.openMock(mock)" aria-label="Go to mock"></md-icon>
+    </md-list-item>
+  </md-list>
+</md-content>

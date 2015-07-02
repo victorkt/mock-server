@@ -32,16 +32,16 @@
                     templateUrl: 'partials/mocks/index.html',
                     controller: 'MocksIndexController as vm'
                 })
-                    .state('mocks.index.new', {
-                        url: '/new',
-                        templateUrl: 'partials/mocks/new.html',
-                        controller: 'MocksNewController as vm'
-                    })
-                    .state('mocks.index.edit', {
-                        url: '/:id',
-                        templateUrl: 'partials/mocks/edit.html',
-                        controller: 'MocksEditController as vm'
-                    })
+                .state('mocks.new', {
+                    url: '/new',
+                    templateUrl: 'partials/mocks/new.html',
+                    controller: 'MocksNewController as vm'
+                })
+                .state('mocks.edit', {
+                    url: '/:id',
+                    templateUrl: 'partials/mocks/edit.html',
+                    controller: 'MocksEditController as vm'
+                })
             
             .state('helpers', {
                 url: '/helpers',
@@ -57,16 +57,16 @@
                     templateUrl: 'partials/helpers/index.html',
                     controller: 'HelpersIndexController as vm'
                 })
-                    .state('helpers.index.new', {
-                        url: '/new',
-                        templateUrl: 'partials/helpers/new.html',
-                        controller: 'HelpersNewController as vm'
-                    })
-                    .state('helpers.index.edit', {
-                        url: '/:id',
-                        templateUrl: 'partials/helpers/edit.html',
-                        controller: 'HelpersEditController as vm'
-                    })
+                .state('helpers.new', {
+                    url: '/new',
+                    templateUrl: 'partials/helpers/new.html',
+                    controller: 'HelpersNewController as vm'
+                })
+                .state('helpers.edit', {
+                    url: '/:id',
+                    templateUrl: 'partials/helpers/edit.html',
+                    controller: 'HelpersEditController as vm'
+                })
             
             .state('logs', {
                 url: '/logs',
