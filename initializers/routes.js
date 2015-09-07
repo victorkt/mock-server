@@ -19,6 +19,12 @@ module.exports = function(app) {
     // route to Mocked resources
     app.use('/m', MockedApi.router);
 
+    // reloads all mocked routes
+    app.use('/reload', function(req, res, next) {
+        MockedApi.loadMocks();
+        res.status(204).end();
+    })
+
     // route to API resources
     app.use('/api', apiRouter);
 
